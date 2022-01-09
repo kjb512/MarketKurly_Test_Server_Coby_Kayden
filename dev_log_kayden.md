@@ -1,7 +1,27 @@
 # 2022-01-08
-* EC2,RDS 서버 구축
-* dev/prod 폴더 나누어서 서브 도메인 적용
-* 서브 도메인별 ssh 적용(cerbort)
-* git에 스프링 부트 템플릿 적용
-* ERD 설계 
-* API 명세서 템플릿 작성
+* EC2,RDS 서버 구축 100%
+* dev/prod 폴더 나누어서 서브 도메인 적용 100%
+* 서브 도메인별 SSL 적용(cerbort) 100%
+* git에 스프링 부트 템플릿 적용 100%
+* ERD 설계 85%
+* API 명세서 템플릿 작성 100%
+
+# 2022-01-09
+* ERD 리팩토링 90%
+  * CheckPoint테이블을 삭제하고 Product테이블에 checkPointImageUrl컬럼 추가
+  * Brand -> Product 구조를 Product -> Brand 구조로 변경하면서 중복데이터 방지
+* Spring Boot Security Setting (OAuth 사용을 위한) 80%
+  * SecurityConfig 작성
+    * CORS 지원 활성화
+    * 권한 부여
+  * CustomOauth2UserService 작성 
+    * SNS 로그인시 데이터 베이스 저장 구현
+  * OAuthAttribute 작성
+    * 무슨 SNS로 로그인하였는지 구별
+  * application-oauth.yml 추가
+    * Naver, Google 설정 추가
+    * application.yml에 profile - oauth 추가
+* 회원가입 API validator 적용으로 validation 구현 60%
+  * validator 에러 메세지 출력을 위해 BaseResponse 수정
+* .gitignore 추가
+  
