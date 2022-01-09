@@ -33,5 +33,12 @@ public class BaseResponse<T> {
         this.message = status.getMessage();
         this.code = status.getCode();
     }
+
+    // validation 실패
+    public BaseResponse(){
+        this.isSuccess = false;
+        this.code = 2004;
+        this.message = "";
+    }
 }
 
