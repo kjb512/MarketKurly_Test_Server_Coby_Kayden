@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: demo
+  profiles:
+    include: oauth
 
   datasource:
     platform: mysql
