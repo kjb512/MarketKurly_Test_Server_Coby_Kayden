@@ -33,4 +33,13 @@
   * Validation error 메세지 처리를 위해 refineErrors라는 메세지 정제 함수 생성
   * Validation 정규식 구현 100%
   * Validation Test 100%
-  * JWT 토큰 생성 
+  * JWT 토큰 생성
+* 로그인API 구현 100%
+  * Validation 구현
+  * 로그인 성공시 토큰 생성
+* API 명세서
+  * 로그인, 회원가입 api 추가 
+* UserController 리팩토링
+  * 권장하지 않는 의존성 주입인 @Autowired 대신 생성자 @RequiredArgsConstructor로 의존성 주입 변경
+  * @RestController에 이미 @ResponseBody 기능이 들어가 있으므로 불필요한 @ResponseBody 제거
+* 휴대폰 인증 API 추가 20%
