@@ -30,6 +30,7 @@
   * User테이블에 이용약관 동의 관련 컬럼 추가
   * 회의 결과, Coupon테이블을 product, user 용 두가지 테이블 구현
 * 회원가입 API validator 적용으로 validation 구현 100%
+  * Validation error 메세지 처리를 위해 refineErrors라는 메세지 정제 함수 생성
   * Validation 정규식 구현 100%
   * Validation Test 100%
   * JWT 토큰 생성 
