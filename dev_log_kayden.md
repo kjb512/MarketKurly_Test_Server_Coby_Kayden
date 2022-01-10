@@ -25,3 +25,11 @@
   * validator 에러 메세지 출력을 위해 BaseResponse 수정
 * .gitignore 추가
   
+# 2022-01-10
+* ERD 리팩토링 92%
+  * User테이블에 이용약관 동의 관련 컬럼 추가
+  * 회의 결과, Coupon테이블을 product, user 용 두가지 테이블 구현
+* 회원가입 API validator 적용으로 validation 구현 100%
+  * Validation 정규식 구현 100%
+  * Validation Test 100%
+  * JWT 토큰 생성 

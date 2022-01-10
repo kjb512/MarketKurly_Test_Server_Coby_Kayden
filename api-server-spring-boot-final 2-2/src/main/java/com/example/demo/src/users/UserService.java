@@ -1,9 +1,10 @@
-package com.example.demo.src.user;
+package com.example.demo.src.users;
 
 
 
 import com.example.demo.config.BaseException;
-import com.example.demo.src.user.model.*;
+import com.example.demo.config.BaseResponse;
+import com.example.demo.src.users.model.*;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
 import org.slf4j.Logger;
@@ -37,12 +38,16 @@ public class UserService {
         if(userProvider.checkEmail(postUserReq.getEmail()) ==1){
             throw new BaseException(POST_USERS_EXISTS_EMAIL);
         }
+        // 아이디 중복확인 T: 중복안됨 F: 중복됨
+        if(userProvider.doubleCheckId(postUserReq.getId()) ==1){
+            throw new BaseException(DOUBLE_CHECK_ID);
+        }
 
         String pwd;
         try{
             //암호화
-            pwd = new SHA256().encrypt(postUserReq.getPassword());
-            postUserReq.setPassword(pwd);
+            pwd = new SHA256().encrypt(postUserReq.getPwd());
+            postUserReq.setPwd(pwd);
 
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_ENCRYPTION_ERROR);

@@ -1,8 +1,7 @@
 package com.example.demo.config.auth;
 
 import com.example.demo.config.auth.dto.OAuthAttributes;
-import com.example.demo.src.user.UserDao;
-import com.example.demo.src.user.model.PostUserReq;
+import com.example.demo.src.users.UserDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

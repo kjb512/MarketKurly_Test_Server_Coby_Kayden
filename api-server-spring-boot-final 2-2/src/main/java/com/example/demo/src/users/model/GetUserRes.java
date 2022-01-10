@@ -1,4 +1,4 @@
-package com.example.demo.src.user.model;
+package com.example.demo.src.users.model;
 
 
 import lombok.AllArgsConstructor;
@@ -10,8 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GetUserRes {
     private int userIdx;
-    private String userName;
-    private String ID;
+    private String name;
+    private String id;
     private String email;
-    private String password;
+    private String pwd;
 }

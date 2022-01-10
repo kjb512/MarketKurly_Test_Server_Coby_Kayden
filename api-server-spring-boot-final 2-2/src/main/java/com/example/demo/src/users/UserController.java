@@ -1,15 +1,17 @@
-package com.example.demo.src.user;
+package com.example.demo.src.users;
 
+import com.example.demo.config.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.user.model.*;
+import com.example.demo.src.users.model.*;
 import com.example.demo.utils.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 
@@ -46,7 +48,7 @@ public class UserController {
      */
     //Query String
     @ResponseBody
-    @GetMapping("") // (GET) 127.0.0.1:9000/app/users
+    @GetMapping("") // (GET) 127.0.0.1:9000/api/users
     public BaseResponse<List<GetUserRes>> getUsers(@RequestParam(required = false) String Email) {
         try{
             if(Email == null){
@@ -88,17 +90,15 @@ public class UserController {
     // Body
     @ResponseBody
     @PostMapping("")
-    public BaseResponse<PostUserRes> createUser(@Valid @RequestBody PostUserReq postUserReq) {
-    //     TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
-        if(postUserReq.getEmail() == null){
-            return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
-        }
-        //이메일 정규표현
-        if(!isRegexEmail(postUserReq.getEmail())){
-            return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
-        }
+    public BaseResponse<PostUserRes> createUser(@Validated @RequestBody PostUserReq postUserReq, Errors errors) {
+         //TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
 
-
+        //Validation
+        if(errors.hasErrors()){
+            // validation과 정규식은 PostUserReq에서 Validator 사용
+            // validation 에러 메세지 처리
+            return new BaseResponse<>(Constant.refineErrors(errors));
+        }
 
         try{
             PostUserRes postUserRes = userService.createUser(postUserReq);

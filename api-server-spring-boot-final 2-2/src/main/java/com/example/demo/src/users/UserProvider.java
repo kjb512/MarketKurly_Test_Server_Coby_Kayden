@@ -1,9 +1,8 @@
-package com.example.demo.src.user;
+package com.example.demo.src.users;
 
 
 import com.example.demo.config.BaseException;
-import com.example.demo.config.BaseResponseStatus;
-import com.example.demo.src.user.model.*;
+import com.example.demo.src.users.model.*;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
 import org.slf4j.Logger;
@@ -49,7 +48,7 @@ public class UserProvider {
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
-                    }
+    }
 
 
     public GetUserRes getUser(int userIdx) throws BaseException {
@@ -65,6 +64,15 @@ public class UserProvider {
         try{
             return userDao.checkEmail(email);
         } catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public int doubleCheckId(String id) throws BaseException{
+        try{
+            return userDao.doubleCheckId(id);
+        }
+        catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
     }
