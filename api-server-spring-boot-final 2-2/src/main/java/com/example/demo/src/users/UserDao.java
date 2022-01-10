@@ -68,6 +68,7 @@ public class UserDao {
         return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
     }
 
+
     public int checkEmail(String email){
         String checkEmailQuery = "select exists(select email from User where email = ?)";
         String checkEmailParams = email;
@@ -92,21 +93,19 @@ public class UserDao {
     }
 
     public User getPwd(PostLoginReq postLoginReq){
-        String getPwdQuery = "select userIdx, password,email,userName,ID from UserInfo where ID = ?";
+        String getPwdQuery = "select userIdx, id,pwd,name,email from User where id = ?";
         String getPwdParams = postLoginReq.getId();
 
         return this.jdbcTemplate.queryForObject(getPwdQuery,
                 (rs,rowNum)-> new User(
                         rs.getInt("userIdx"),
-                        rs.getString("ID"),
-                        rs.getString("userName"),
-                        rs.getString("password"),
+                        rs.getString("id"),
+                        rs.getString("pwd"),
+                        rs.getString("name"),
                         rs.getString("email")
                 ),
                 getPwdParams
                 );
 
     }
-
-
 }

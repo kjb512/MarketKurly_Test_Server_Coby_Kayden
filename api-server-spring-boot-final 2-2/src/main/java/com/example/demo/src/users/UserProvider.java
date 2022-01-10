@@ -81,12 +81,12 @@ public class UserProvider {
         User user = userDao.getPwd(postLoginReq);
         String encryptPwd;
         try {
-            encryptPwd=new SHA256().encrypt(postLoginReq.getPassword());
+            encryptPwd=new SHA256().encrypt(postLoginReq.getPwd());
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_DECRYPTION_ERROR);
         }
 
-        if(user.getPassword().equals(encryptPwd)){
+        if(user.getPwd().equals(encryptPwd)){
             int userIdx = user.getUserIdx();
             String jwt = jwtService.createJwt(userIdx);
             return new PostLoginRes(userIdx,jwt);

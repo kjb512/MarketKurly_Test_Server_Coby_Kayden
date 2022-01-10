@@ -1,6 +1,7 @@
 package com.example.demo.src.users;
 
 import com.example.demo.config.Constant;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.example.demo.config.BaseException;
@@ -20,24 +21,15 @@ import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
 @RequestMapping("/api/users")
+@RequiredArgsConstructor
 public class UserController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
+    // 생성자로 의존성 주입
     private final UserProvider userProvider;
-    @Autowired
     private final UserService userService;
-    @Autowired
     private final JwtService jwtService;
 
-
-
-
-    public UserController(UserProvider userProvider, UserService userService, JwtService jwtService){
-        this.userProvider = userProvider;
-        this.userService = userService;
-        this.jwtService = jwtService;
-    }
 
     /**
      * 회원 조회 API
@@ -47,7 +39,6 @@ public class UserController {
      * @return BaseResponse<List<GetUserRes>>
      */
     //Query String
-    @ResponseBody
     @GetMapping("") // (GET) 127.0.0.1:9000/api/users
     public BaseResponse<List<GetUserRes>> getUsers(@RequestParam(required = false) String Email) {
         try{
@@ -69,7 +60,6 @@ public class UserController {
      * @return BaseResponse<GetUserRes>
      */
     // Path-variable
-    @ResponseBody
     @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
     public BaseResponse<GetUserRes> getUser(@PathVariable("userIdx") int userIdx) {
         // Get Users
@@ -87,8 +77,6 @@ public class UserController {
      * [POST] /users
      * @return BaseResponse<PostUserRes>
      */
-    // Body
-    @ResponseBody
     @PostMapping("")
     public BaseResponse<PostUserRes> createUser(@Validated @RequestBody PostUserReq postUserReq, Errors errors) {
          //TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
@@ -112,12 +100,20 @@ public class UserController {
      * [POST] /users/logIn
      * @return BaseResponse<PostLoginRes>
      */
-    @ResponseBody
-    @PostMapping("/logIn")
-    public BaseResponse<PostLoginRes> logIn(@RequestBody PostLoginReq postLoginReq){
+    @PostMapping("/login")
+    public BaseResponse<PostLoginRes> logIn(@Validated @RequestBody PostLoginReq postLoginReq, Errors errors){
+        // TODO: 로그인 값들에 대한 형식적인 validatin 처리해주셔야합니다!
+        // TODO: 유저의 status ex) 비활성화된 유저, 탈퇴한 유저 등을 관리해주고 있다면 해당 부분에 대한 validation 처리도 해주셔야합니다.
+
+        //Validation
+        if(errors.hasErrors()){
+            // validation과 정규식은 PostUserReq에서 Validator 사용
+            // validation 에러 메세지 처리
+            return new BaseResponse<>(Constant.refineErrors(errors));
+        }
+
+
         try{
-            // TODO: 로그인 값들에 대한 형식적인 validatin 처리해주셔야합니다!
-            // TODO: 유저의 status ex) 비활성화된 유저, 탈퇴한 유저 등을 관리해주고 있다면 해당 부분에 대한 validation 처리도 해주셔야합니다.
             PostLoginRes postLoginRes = userProvider.logIn(postLoginReq);
             return new BaseResponse<>(postLoginRes);
         } catch (BaseException exception){
@@ -130,7 +126,6 @@ public class UserController {
      * [PATCH] /users/:userIdx
      * @return BaseResponse<String>
      */
-    @ResponseBody
     @PatchMapping("/{userIdx}")
     public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
         try {
@@ -141,7 +136,7 @@ public class UserController {
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
             //같다면 유저네임 변경
-            PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getUserName());
+            PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getName());
             userService.modifyUserName(patchUserReq);
 
             String result = "";
