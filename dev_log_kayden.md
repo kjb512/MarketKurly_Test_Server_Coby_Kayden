@@ -44,7 +44,7 @@
   * @RestController에 이미 @ResponseBody 기능이 들어가 있으므로 불필요한 @ResponseBody 제거
 * 휴대폰 인증 API 추가 20%
 
-# 2022-01-10
+# 2022-01-11
 * 휴대폰 인증 API 100% -> 카톡API로 변경 예정
 * 아이디 중복확인 API 100%
 * 회원정보 수정 API 100%
