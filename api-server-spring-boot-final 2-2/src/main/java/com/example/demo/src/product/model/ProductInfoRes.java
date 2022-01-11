@@ -19,7 +19,6 @@ public class ProductInfoRes {
     private String contentSubTitle;
     private String contentImageUrl;
     private String ingredientImageUrl;
-    // 등록날짜?
     private String saleUnit;
     private String weight;
     private String delivery;
@@ -28,4 +27,6 @@ public class ProductInfoRes {
     private String guidance;
     private String allergy;
     private String origin;
+    private BrandDto brandDto;
+    private TipContentDto tipContentDto;
 }

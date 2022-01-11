@@ -33,5 +33,4 @@ public class ProductProvider {
         this.jwtService = jwtService;
     }
 
-
 }
