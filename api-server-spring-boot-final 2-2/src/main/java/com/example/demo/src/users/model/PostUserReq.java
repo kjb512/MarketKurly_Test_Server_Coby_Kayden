@@ -28,7 +28,7 @@ public class PostUserReq {
     private String phone;
     @NotEmpty
     private String adress;
-    @Pattern(regexp = "^(19|20)\\d{2}-\\d{2}-\\d{2}$", message = "형식 19xx-xx-xx가 아님 or 20xx-xx-xx")
+    @Pattern(regexp = "^(19|20)\\d{2}-\\d{2}-\\d{2}$", message = "형식 (19xx-xx-xx or 20xx-xx-xx)가 아닙니다 ")
     private String birthDate;
     @Pattern(regexp = "[MF]", message = "M/F 중 하나를 입력하여야 합니다.")
     private String gender;

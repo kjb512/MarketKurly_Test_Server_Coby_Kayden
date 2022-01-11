@@ -43,3 +43,12 @@
   * 권장하지 않는 의존성 주입인 @Autowired 대신 생성자 @RequiredArgsConstructor로 의존성 주입 변경
   * @RestController에 이미 @ResponseBody 기능이 들어가 있으므로 불필요한 @ResponseBody 제거
 * 휴대폰 인증 API 추가 20%
+
+# 2022-01-10
+* 휴대폰 인증 API 100% -> 카톡API로 변경 예정
+* 아이디 중복확인 API 100%
+* 회원정보 수정 API 100%
+* 아이디 중복환인 API 100%
+* 회원조회API(이메일 조회), 특정 회원조회API 추가 100%
+* API 명세서
+  * 휴대폰 인증 API,아이디 중복확인API, 회원정보 수정API, 회원조회API, 특정회원조회API 추가 

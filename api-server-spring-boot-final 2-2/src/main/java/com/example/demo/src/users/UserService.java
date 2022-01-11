@@ -4,6 +4,8 @@ package com.example.demo.src.users;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
+import com.example.demo.src.auth.model.GetAuthReq;
+import com.example.demo.src.auth.model.GetAuthRes;
 import com.example.demo.src.users.model.*;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
@@ -62,9 +64,18 @@ public class UserService {
         }
     }
 
-    public void modifyUserName(PatchUserReq patchUserReq) throws BaseException {
+    public void modifyUserName(int userIdx, PatchUserReq patchUserReq) throws BaseException {
+        String pwd;
         try{
-            int result = userDao.modifyUserName(patchUserReq);
+            //암호화
+            pwd = new SHA256().encrypt(patchUserReq.getPwd());
+            patchUserReq.setPwd(pwd);
+
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
+        }
+        try{
+            int result = userDao.modifyUserName(userIdx, patchUserReq);
             if(result == 0){
                 throw new BaseException(MODIFY_FAIL_USERNAME);
             }
@@ -72,4 +83,6 @@ public class UserService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+
 }

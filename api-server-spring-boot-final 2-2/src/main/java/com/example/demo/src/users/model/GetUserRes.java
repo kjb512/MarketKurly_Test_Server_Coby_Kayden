@@ -14,4 +14,5 @@ public class GetUserRes {
     private String id;
     private String email;
     private String pwd;
+    private String phone;
 }
