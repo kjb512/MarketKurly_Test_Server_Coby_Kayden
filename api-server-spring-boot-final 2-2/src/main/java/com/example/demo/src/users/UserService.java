@@ -6,6 +6,8 @@ import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.src.auth.model.GetAuthReq;
 import com.example.demo.src.auth.model.GetAuthRes;
+import com.example.demo.src.auth.model.GetIdReq;
+import com.example.demo.src.auth.model.GetIdRes;
 import com.example.demo.src.users.model.*;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
@@ -84,5 +86,12 @@ public class UserService {
         }
     }
 
+    public GetIdRes doubleCheckId(GetIdReq getIdReq) throws BaseException{
+        // 아이디 중복확인 T: 중복됨 F: 중복안됨
+        if(userProvider.doubleCheckId(getIdReq.getId()) ==1){
+            throw new BaseException(DOUBLE_CHECK_ID);
+        }
+        return new GetIdRes("아이디 사용가능");
+    }
 
 }

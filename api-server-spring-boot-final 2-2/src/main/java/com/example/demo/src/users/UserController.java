@@ -1,6 +1,8 @@
 package com.example.demo.src.users;
 
 import com.example.demo.config.Constant;
+import com.example.demo.src.auth.model.GetIdReq;
+import com.example.demo.src.auth.model.GetIdRes;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -150,5 +152,23 @@ public class UserController {
         }
     }
 
+
+    // id 중복 확인
+    @GetMapping("/check/id")
+    public BaseResponse<GetIdRes> authId(@Validated @RequestBody GetIdReq getIdReq, Errors errors)  {
+        //Validation
+        if (errors.hasErrors()) {
+            // validation과 정규식은 PostUserReq에서 Validator 사용
+            // validation 에러 메세지 처리
+            return new BaseResponse<>(Constant.refineErrors(errors));
+        }
+        try {
+            GetIdRes getAuthRes = userService.doubleCheckId(getIdReq);
+            return new BaseResponse<>(getAuthRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+
+    }
 
 }

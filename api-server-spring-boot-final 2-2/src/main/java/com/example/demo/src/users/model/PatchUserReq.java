@@ -29,9 +29,9 @@ public class PatchUserReq {
     @Pattern(regexp = "[MF]", message = "M/F 중 하나를 입력하여야 합니다.")
     private String gender;
     @Pattern(regexp = "[YN]", message = "Y/N 중 하나를 입력하여야 합니다.")
-    private String PIUFlag;
+    private String isPersonalInfoUsageAgree;
     @Pattern(regexp = "[YN]", message = "Y/N 중 하나를 입력하여야 합니다.")
-    private String smsFlag;
+    private String isSmsReceiveAgree;
     @Pattern(regexp = "[YN]", message = "Y/N 중 하나를 입력하여야 합니다.")
-    private String emailFlag;
+    private String isEmailReceiveAgree;
 }

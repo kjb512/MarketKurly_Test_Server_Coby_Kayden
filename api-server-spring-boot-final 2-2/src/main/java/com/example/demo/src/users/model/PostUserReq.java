@@ -8,6 +8,8 @@ import lombok.Setter;
 import javax.validation.constraints.*;
 import java.util.Date;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,6 +30,8 @@ public class PostUserReq {
     private String phone;
     @NotEmpty
     private String adress;
+    @NotEmpty
+    private String extraAdress;
     @Pattern(regexp = "^(19|20)\\d{2}-\\d{2}-\\d{2}$", message = "형식 (19xx-xx-xx or 20xx-xx-xx)가 아닙니다 ")
     private String birthDate;
     @Pattern(regexp = "[MF]", message = "M/F 중 하나를 입력하여야 합니다.")
@@ -38,19 +42,19 @@ public class PostUserReq {
     private String eventName;
     @NotEmpty
     @Pattern(regexp = "[Y]", message = "필수 동의 이므로 Y를 입력하셔야 합니다.")
-    private String TOUFlag;
+    private String isTermsOfUseAgree;
     @NotEmpty
     @Pattern(regexp = "[Y]", message = "필수 동의 이므로 Y를 입력하셔야 합니다.")
-    private String PIFlag;
+    private String isPersonalInfoCollectAgree;
     @Pattern(regexp = "[YN]", message = "Y/N 중 하나를 입력하여야 합니다.")
-    private String PIUFlag;
+    private String isPersonalInfoUsageAgree;
     @Pattern(regexp = "[YN]", message = "Y/N 중 하나를 입력하여야 합니다.")
-    private String smsFlag;
+    private String isSmsReceiveAgree;
     @Pattern(regexp = "[YN]", message = "Y/N 중 하나를 입력하여야 합니다.")
-    private String emailFlag;
+    private String isEmailReceiveAgree;
     @NotEmpty
     @Pattern(regexp = "[Y]", message = "필수 동의 이므로 Y를 입력하셔야 합니다.")
-    private String ageFlag;
+    private String isAgeAboveForteen;
 
 //    @Builder
 //    public PostUserReq(String name, String id, String pwd, String email, String phone, String adress, Date birthDate, String gender, String recommender, String eventName, String TOUFlag, String PIFlag, String PIUFlag, String smsFlag, String emailFlag, String ageFlag) {

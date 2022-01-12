@@ -27,7 +27,6 @@ public class UserDao {
                         rs.getString("name"),
                         rs.getString("id"),
                         rs.getString("email"),
-                        rs.getString("pwd"),
                         rs.getString("phone"))
                 );
     }
@@ -41,7 +40,6 @@ public class UserDao {
                         rs.getString("name"),
                         rs.getString("id"),
                         rs.getString("email"),
-                        rs.getString("pwd"),
                         rs.getString("phone")),
                 getUsersByEmailParams);
     }
@@ -56,15 +54,15 @@ public class UserDao {
                         rs.getString("name"),
                         rs.getString("id"),
                         rs.getString("email"),
-                        rs.getString("pwd"),
                         rs.getString("phone")),
                 getUserParams);
     }
     
 
     public int createUser(PostUserReq postUserReq){
-        String createUserQuery = "insert into User(id, pwd, name, email, phone, adress, birthDate, gender, smsFlag, emailFlag, TOUFlag, PIFlag, PIUFlag, ageFlag, recommender, eventName) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        Object[] createUserParams = new Object[]{postUserReq.getId(),postUserReq.getPwd(),postUserReq.getName(),postUserReq.getEmail(),postUserReq.getPhone(),postUserReq.getAdress(), postUserReq.getBirthDate(), postUserReq.getGender(), postUserReq.getSmsFlag(),postUserReq.getEmailFlag(), postUserReq.getTOUFlag(), postUserReq.getPIFlag(), postUserReq.getPIUFlag(), postUserReq.getAgeFlag(), postUserReq.getRecommender(), postUserReq.getEventName()};
+        String createUserQuery = "insert into User(id, pwd, name, email, phone, address, birthDate, gender, isSmsReceiveAgree, isEmailReceiveAgree, isTermsOfUseAgree, isPersonalInfoCollectAgree, isPersonalInfoUsageAgree, isAgeAboveForteen, recommender, eventName, extraAdress) " +
+                "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        Object[] createUserParams = new Object[]{postUserReq.getId(),postUserReq.getPwd(),postUserReq.getName(),postUserReq.getEmail(),postUserReq.getPhone(),postUserReq.getAdress(), postUserReq.getBirthDate(), postUserReq.getGender(), postUserReq.getIsSmsReceiveAgree(),postUserReq.getIsEmailReceiveAgree(), postUserReq.getIsTermsOfUseAgree(), postUserReq.getIsPersonalInfoCollectAgree(), postUserReq.getIsPersonalInfoUsageAgree(), postUserReq.getIsAgeAboveForteen(), postUserReq.getRecommender(), postUserReq.getEventName(), postUserReq.getExtraAdress()};
         this.jdbcTemplate.update(createUserQuery, createUserParams);
 
         String lastInserIdQuery = "select last_insert_id()";
@@ -89,8 +87,8 @@ public class UserDao {
     }
 
     public int modifyUserName(int userIdx, PatchUserReq patchUserReq){
-        String modifyUserNameQuery = "update User set name = ?,pwd = ?, email =?, phone =?, birthDate=?, gender=?, PIUFlag=?,smsFlag=?, emailFlag=? where userIdx = ? ";
-        Object[] modifyUserNameParams = new Object[]{patchUserReq.getName(), patchUserReq.getPwd(), patchUserReq.getEmail(), patchUserReq.getPhone(), patchUserReq.getBirthDate(), patchUserReq.getGender(),patchUserReq.getPIUFlag(),patchUserReq.getSmsFlag(),patchUserReq.getEmailFlag(), userIdx};
+        String modifyUserNameQuery = "update User set name = ?,pwd = ?, email =?, phone =?, birthDate=?, gender=?, isPersonalInfoUsageAgree=?,isSmsReceiveAgree=?, isEmailReceiveAgree=? where userIdx = ? ";
+        Object[] modifyUserNameParams = new Object[]{patchUserReq.getName(), patchUserReq.getPwd(), patchUserReq.getEmail(), patchUserReq.getPhone(), patchUserReq.getBirthDate(), patchUserReq.getGender(),patchUserReq.getIsPersonalInfoUsageAgree(),patchUserReq.getIsSmsReceiveAgree(),patchUserReq.getIsEmailReceiveAgree(), userIdx};
 
         return this.jdbcTemplate.update(modifyUserNameQuery,modifyUserNameParams);
     }
