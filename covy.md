@@ -102,3 +102,36 @@
     - CartProduct
     - PaymentCard
     - PaymentPhone
+- DTO 클래스 생성
+
+
+
+01/12일 개발일지
+
+- DTO 클래스 수정
+
+- ERD 재설계한 바탕으로 Table 생성
+
+  - Trouble shooting
+
+    - ```
+      CREATE TABLE Order
+      (
+          `orderIdx`     INT            NOT NULL    AUTO_INCREMENT,
+          `userIdx`      INT            NOT NULL,
+          `cartIdx`      INT            NOT NULL,
+          `paymentType`  INT            NOT NULL,
+          `createAt`     TIMESTAMP      NOT NULL    DEFAULT CURRENT_TIMESTAMP,
+          `updateAt`     TIMESTAMP      NOT NULL    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+          `status`       VARCHAR(10)    NOT NULL    DEFAULT 'ACTIVE',
+           PRIMARY KEY (orderIdx)
+      );
+      ```
+
+    - order 테이블 생성시 Order가 명령어로 인식되어 오류 발생
+    - 'order' 형식으로 따옴표 추가해서 테이블 생성 -> 해결
+
+- 기획 회의
+
+- 개발
+

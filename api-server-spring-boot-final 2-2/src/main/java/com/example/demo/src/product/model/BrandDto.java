@@ -12,11 +12,9 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class BrandDto {
     private int brandIdx;
-    private String name;
+    private String brandInfo;
     private String contentImageUrl1;
-    private String content;
     private String contentImageUrl2;
-    private String subTitle;
     private Timestamp createAt;
     private Timestamp updateAt;
     private String status;

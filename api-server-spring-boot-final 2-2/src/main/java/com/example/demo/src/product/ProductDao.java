@@ -18,12 +18,36 @@ public class ProductDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<GetUserRes> getProductByIdx(int productIdx){
+    public ProductInfoRes getProductByIdx(int productIdx){
         String getProductQuery = "select * from Product where productIdx=?";
         return this.jdbcTemplate.query(getProductQuery,
                 (rs,rowNum) -> new ProductInfoRes(
                         rs.getInt("productIdx"),
-                        rs.getString()),productIdx
+                        rs.getString("title"),
+                        rs.getString("subTitle"),
+                        rs.getInt("price"),
+                        rs.getInt("discount"),
+                        rs.getString("profileImageUrl"),
+                        rs.getString("contentTitle"),
+                        rs.getString("contentSubTitle"),
+                        rs.getString("contentImageUrl"),
+                        rs.getString("ingredientImageUrl"),
+                        rs.getString("saleUnit"),
+                        rs.getString("weight"),
+                        rs.getString("deliveryType"),
+                        // packagingType
+                        rs.getString("expirationDate"),
+                        rs.getString("checkPointImageUrl"),
+                        rs.getString("detailInfoImageUrl"),
+                        rs.getDate("saleDeadLine"),
+                        rs.getString(),
+                        rs.getString(),
+                        rs.getInt(),
+                        rs.getString(),
+                        // List<AllergyDto>
+                        //BrandDTO
+                        //List<TipContentDto>
+                        ),productIdx
         );
     }
 }
