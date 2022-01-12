@@ -52,3 +52,21 @@
 * 회원조회API(이메일 조회), 특정 회원조회API 추가 100%
 * API 명세서
   * 휴대폰 인증 API,아이디 중복확인API, 회원정보 수정API, 회원조회API, 특정회원조회API 추가 
+* 1차 피드백
+  * 네이밍 직관적으로 변경
+  * 테이블 더 추가하기
+  * api 리스트업 진행하기
+  * 오타 수정하기
+  * API 역할 재분배 
+  
+# 2022-01-12
+* ERD 재설계
+  * naming 직관적으로 변경 (ex. PIFlag -> isPersonalInfoCollectAgree)
+  * 테이블 개수 추가 (9개 -> 27개)
+  * 오타 수정
+* 서버 설정 변경
+  * 리버스 프록시 설정
+* ERD 설계 변경으로 인한 API 수정
+  * User API 수정
+  * 아이디 중복 확인 API URI 변경 /auth/id -> /users/check/id
+* API template 수정
