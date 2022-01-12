@@ -31,7 +31,7 @@
   - 기능 구현에 있어 부족한 부분들 추가 및 수정
 
     - - 상품에서 선물하기 가능한지
-      - 세일 기간 (마감기한) 
+      - 세일 기간 (마감기한)
       - 쿠폰
       - 상품 리스트들 볼때 하단에 kurly only/한정수량 같은 정보들
       - Product 정보를 사진으로 바꾸면서 상품설명 사진 /상세정보 사진 각 테이블 추가 
@@ -56,5 +56,49 @@
   - S3에 이미지 저장
   - 쿠폰은 후순위로 개발
 - ERD로 RDS 테이블 생성
-
 - product API 개발 시작
+
+
+
+01/11일 일지
+
+- 1차 피드백
+
+  - ERD
+
+    - ERD 전체적인 테이블 수 부족 -> 9개에서 27개로 보완 완료
+    - Flag 컬럼들이 네이밍이 명확하지 않음 -> 수정 완료
+    - address,imageUrl 등 varchar 타입 대신 TEXT 타입 변경 -> 수정 완료
+    - Question 답변 테이블 제작 -> 
+
+    - Brand 테이블 subtitle이 있으니 name을 title로 통일 -> 수정 완료
+    - subCIdx같이 컬럼명을 줄이는 것보다 알아 볼 수 있게 전체를 써도 좋다 -> 수정 완료
+    - Product테이블 Price varchar에서 Int로 변경 -> 수정 완료
+    - Product테이블 Delivery 네이밍이 명확하지 않음 -> deliveryType 으로 변경 완료
+    - 안내사항 같은 줄 바꿈이 있는 텍스트는 배열 형식으로 -> 안내사항 테이블 생성으로 수정 완료
+
+  - 추가적으로 더미데이터는 실제처럼, Api 명세서 리스트업 먼저 하는게 좋음
+  - prod,dev 구현 확인  - 나누었지만 403이 나와 수정할 것
+
+- 기획 회의
+  - ERD 피드백 바탕으로 수정
+  - Table 추가
+    - Answer
+    - Deliveryinfo
+    - PackagingType
+    - Address
+    - ProductGuide
+    - Allergy
+    - ProductAllergy
+    - Payment
+    - SearchKeyword
+    - Order
+    - Cart
+    - Likes
+    - Coupon
+    - CouponUser
+    - CouponProduct
+    - Event
+    - CartProduct
+    - PaymentCard
+    - PaymentPhone
