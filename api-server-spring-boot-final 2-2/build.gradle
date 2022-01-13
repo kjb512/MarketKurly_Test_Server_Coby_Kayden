@@ -24,6 +24,8 @@ repositories {
 
 dependencies {
     implementation 'org.jetbrains:annotations:19.0.0'
+    implementation 'junit:junit:4.13.1'
+    implementation 'junit:junit:4.13.1'
 
 
     // Spring Boot Starter
@@ -54,6 +56,13 @@ dependencies {
 
     implementation('org.springframework.boot:spring-boot-starter')
     compile('org.springframework.boot:spring-boot-starter-web')
+
+    //Test
+    implementation('com.h2database:h2')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    // SMS auth
+    compile group: 'net.nurigo', name: 'javaSDK', version: '2.2'
 
 
 

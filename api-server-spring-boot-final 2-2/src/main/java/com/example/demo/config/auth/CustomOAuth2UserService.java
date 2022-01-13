@@ -1,8 +1,8 @@
 package com.example.demo.config.auth;
 
 import com.example.demo.config.auth.dto.OAuthAttributes;
-import com.example.demo.src.user.UserDao;
-import com.example.demo.src.user.model.PostUserReq;
+import com.example.demo.src.users.UserDao;
+import com.example.demo.src.users.model.PostSnsUserReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -42,6 +42,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     }
 
     private void saveOrUpdate(OAuthAttributes attributes) {
-        //userDao.createUserBySns(new PostUserReq(attributes.getName(), attributes.getEmail(), attributes.getPicture()));
+        //userDao.createUserBySns(new PostSnsUserReq(attributes.getName(), attributes.getEmail(), attributes.getPicture()));
     }
 }
