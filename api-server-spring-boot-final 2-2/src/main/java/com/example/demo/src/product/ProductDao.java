@@ -18,7 +18,10 @@ public class ProductDao {
     }
 
     public ProductInfoRes getProductByIdx(int productIdx){
-        String query = "select * from Product where productIdx=?";
+        String query = "select *\n" +
+                "from (Product as p left join Brand as b on p.brandIdx = b.brandIdx)\n" +
+                "         left join PackagingType as pt on p.packagingTypeIdx = pt.packagingTypeIdx\n" +
+                "where productIdx = ?;";
         return this.jdbcTemplate.queryForObject(query,
                 (rs,rowNum) -> new ProductInfoRes(
                         rs.getInt("productIdx"),
@@ -86,5 +89,11 @@ public class ProductDao {
                         rs.getString("content")),productIdx
         );
     }
+
+    public List<ProductMiniInfoRes> getProductsBySubCategory(){
+
+
+    }
+
 
 }

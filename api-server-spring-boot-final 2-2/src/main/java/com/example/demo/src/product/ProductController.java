@@ -44,6 +44,5 @@ public class ProductController {
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
-
     }
 }
