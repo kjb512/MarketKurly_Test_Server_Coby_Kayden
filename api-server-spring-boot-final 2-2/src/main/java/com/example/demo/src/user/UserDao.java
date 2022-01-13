@@ -28,7 +28,7 @@ public class UserDao {
                         rs.getString("ID"),
                         rs.getString("Email"),
                         rs.getString("password"))
-                );
+        );
     }
 
     public List<GetUserRes> getUsersByEmail(String email){
@@ -56,7 +56,7 @@ public class UserDao {
                         rs.getString("password")),
                 getUserParams);
     }
-    
+
 
     public int createUser(PostUserReq postUserReq){
         String createUserQuery = "insert into UserInfo (userName, ID, password, email) VALUES (?,?,?,?)";
@@ -96,7 +96,7 @@ public class UserDao {
                         rs.getString("email")
                 ),
                 getPwdParams
-                );
+        );
 
     }
 

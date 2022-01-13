@@ -2,6 +2,7 @@ package com.example.demo.src.product;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
+import com.example.demo.src.product.model.ProductInfoRes;
 import com.example.demo.src.user.UserProvider;
 import com.example.demo.src.user.UserService;
 import com.example.demo.src.user.model.*;
@@ -34,5 +35,18 @@ public class ProductController {
         this.productProvider = productProvider;
         this.productService = productService;
         this.jwtService = jwtService;
+    }
+
+    @ResponseBody
+    @GetMapping("/{productIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    public BaseResponse<ProductInfoRes> getProductByIdx(@PathVariable("productIdx") int productIdx) {
+        // Get Users
+        try{
+            ProductInfoRes getProductRes = productProvider.getProduct(productIdx);
+            return new BaseResponse<>(getProductRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+
     }
 }

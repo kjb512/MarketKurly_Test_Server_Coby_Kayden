@@ -15,7 +15,4 @@ public class BrandDto {
     private String brandInfo;
     private String contentImageUrl1;
     private String contentImageUrl2;
-    private Timestamp createAt;
-    private Timestamp updateAt;
-    private String status;
 }

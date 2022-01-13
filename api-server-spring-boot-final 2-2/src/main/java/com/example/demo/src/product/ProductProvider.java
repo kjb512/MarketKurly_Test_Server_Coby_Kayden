@@ -2,6 +2,7 @@ package com.example.demo.src.product;
 
 
 import com.example.demo.config.BaseException;
+import com.example.demo.src.product.model.ProductInfoRes;
 import com.example.demo.src.user.UserDao;
 import com.example.demo.src.user.model.GetUserRes;
 import com.example.demo.src.user.model.PostLoginReq;
@@ -22,15 +23,24 @@ import static com.example.demo.config.BaseResponseStatus.*;
 @Service
 public class ProductProvider {
 
-    private final UserDao userDao;
+    private final ProductDao productDao;
     private final JwtService jwtService;
 
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    public ProductProvider(UserDao userDao, JwtService jwtService) {
-        this.userDao = userDao;
+    public ProductProvider(ProductDao productDao, JwtService jwtService) {
+        this.productDao = productDao;
         this.jwtService = jwtService;
+    }
+    public ProductInfoRes getProduct(int productIdx) throws BaseException{
+        try{
+            ProductInfoRes getProductRes = productDao.getProductByIdx(productIdx);
+            return getProductRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
     }
 
 }
