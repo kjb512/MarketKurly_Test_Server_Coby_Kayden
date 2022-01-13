@@ -70,3 +70,7 @@
   * User API 수정
   * 아이디 중복 확인 API URI 변경 /auth/id -> /users/check/id
 * API template 수정
+
+# 2022-01-13(몸상태가 안좋아서 작업을 많이 못했습니다.)
+* User API 수정
+  * 프론트쪽에서 GET의 경우 리퀘스트 바디에 안들어가는 문제가 있어서 쿼리스트링으로 변경
