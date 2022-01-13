@@ -155,15 +155,15 @@ public class UserController {
 
     // id 중복 확인
     @GetMapping("/check/id")
-    public BaseResponse<GetIdRes> authId(@Validated @RequestBody GetIdReq getIdReq, Errors errors)  {
+    public BaseResponse<GetIdRes> authId(@RequestParam String id)  {
         //Validation
-        if (errors.hasErrors()) {
-            // validation과 정규식은 PostUserReq에서 Validator 사용
-            // validation 에러 메세지 처리
-            return new BaseResponse<>(Constant.refineErrors(errors));
-        }
+//        if (errors.hasErrors()) {
+//            // validation과 정규식은 PostUserReq에서 Validator 사용
+//            // validation 에러 메세지 처리
+//            return new BaseResponse<>(Constant.refineErrors(errors));
+//        }
         try {
-            GetIdRes getAuthRes = userService.doubleCheckId(getIdReq);
+            GetIdRes getAuthRes = userService.doubleCheckId(id);
             return new BaseResponse<>(getAuthRes);
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));

@@ -25,7 +25,7 @@ public class AuthService {
     private final UserProvider userProvider;
 
 
-    public GetAuthRes sendSms(GetAuthReq getAuthReq) throws BaseException{
+    public GetAuthRes sendSms(String phone ) throws BaseException{
 
         Random rand = new Random();
         String certNum = "";
@@ -40,7 +40,7 @@ public class AuthService {
 //
 //        // 4 params(to, from, type, text) are mandatory. must be filled
 //        HashMap<String, String> params = new HashMap<String, String>();
-//        params.put("to", getAuthReq.getPhone());    // 수신전화번호
+//        params.put("to", phone);    // 수신전화번호
 //        params.put("from", "01065779308");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
 //        params.put("type", "SMS");
 //        params.put("text", "[마켓컬리] 인증알림\n아래 인증번호를 입력해주세요.\n\n인증번호 " + "["+certNum+"]");

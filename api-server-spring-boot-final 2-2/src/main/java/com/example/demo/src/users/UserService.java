@@ -86,9 +86,9 @@ public class UserService {
         }
     }
 
-    public GetIdRes doubleCheckId(GetIdReq getIdReq) throws BaseException{
+    public GetIdRes doubleCheckId(String id) throws BaseException{
         // 아이디 중복확인 T: 중복됨 F: 중복안됨
-        if(userProvider.doubleCheckId(getIdReq.getId()) ==1){
+        if(userProvider.doubleCheckId(id) ==1){
             throw new BaseException(DOUBLE_CHECK_ID);
         }
         return new GetIdRes("아이디 사용가능");
