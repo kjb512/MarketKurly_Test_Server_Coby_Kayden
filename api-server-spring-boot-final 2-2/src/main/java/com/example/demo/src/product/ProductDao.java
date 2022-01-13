@@ -1,7 +1,6 @@
 package com.example.demo.src.product;
 
 import com.example.demo.src.product.model.*;
-import com.example.demo.src.user.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

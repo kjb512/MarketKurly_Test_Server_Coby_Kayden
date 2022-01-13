@@ -2,11 +2,7 @@ package com.example.demo.src.product;
 
 
 import com.example.demo.config.BaseException;
-import com.example.demo.src.user.UserDao;
-import com.example.demo.src.user.UserProvider;
-import com.example.demo.src.user.model.PatchUserReq;
-import com.example.demo.src.user.model.PostUserReq;
-import com.example.demo.src.user.model.PostUserRes;
+
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
 import org.slf4j.Logger;
@@ -21,15 +17,15 @@ import static com.example.demo.config.BaseResponseStatus.*;
 public class ProductService {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final UserDao userDao;
-    private final UserProvider userProvider;
+    private final ProductDao productDao;
+    private final ProductProvider productProvider;
     private final JwtService jwtService;
 
 
     @Autowired
-    public ProductService(UserDao userDao, UserProvider userProvider, JwtService jwtService) {
-        this.userDao = userDao;
-        this.userProvider = userProvider;
+    public ProductService(ProductDao userDao, ProductProvider productProvider, JwtService jwtService) {
+        this.productDao = userDao;
+        this.productProvider = productProvider;
         this.jwtService = jwtService;
 
     }
