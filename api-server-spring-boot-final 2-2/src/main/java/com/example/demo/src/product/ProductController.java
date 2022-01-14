@@ -3,6 +3,7 @@ package com.example.demo.src.product;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.src.product.model.ProductInfoRes;
+import com.example.demo.src.product.model.ProductMiniInfoRes;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,28 @@ public class ProductController {
         try{
             ProductInfoRes getProductRes = productProvider.getProduct(productIdx);
             return new BaseResponse<>(getProductRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+    @ResponseBody
+    @GetMapping("/category/{categoryIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    public BaseResponse<List<ProductMiniInfoRes>> getProductByCategory(@PathVariable("categoryIdx") int categoryIdx) {
+        // Get Users
+        try{
+            List<ProductMiniInfoRes> getProductByCategoryRes = productProvider.getProductsByCategory(categoryIdx);
+            return new BaseResponse<>(getProductByCategoryRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+    @ResponseBody
+    @GetMapping("/subCategory/{subCategoryIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    public BaseResponse<List<ProductMiniInfoRes>> getProductBySubCategory(@PathVariable("subCategoryIdx") int subCategoryIdx ) {
+        // Get Users
+        try{
+            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsBySubCategory(subCategoryIdx);
+            return new BaseResponse<>(getProductBySubCategoryRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }

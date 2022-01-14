@@ -14,7 +14,9 @@ public class ProductMiniInfoDto {
     private int productIdx;
     private String title;
     private String profileImgUrl;
-    private Boolean isKurlyOnly;
+    private String isKurlyOnly;
+    private Boolean isLimitQuantity;
     private int price;
     private int discount;
+    private int discountAfterPrice;
 }

@@ -90,9 +90,39 @@ public class ProductDao {
         );
     }
 
-    public List<ProductMiniInfoRes> getProductsBySubCategory(){
 
+    public List<ProductMiniInfoRes> getProductsBySubCategory(int subCatehgoryIdx){
+        String query = "select *\n" +
+                "from Product\n" +
+                "where subCategoryIdx=?;";
+        return this.jdbcTemplate.query(query,
+                (rs,rowNum) -> new ProductMiniInfoRes(rs.getInt("productIdx"),
+                        rs.getString("title"),
+                        rs.getString("profileImageUrl"),
+                        rs.getString("isKurlyOnly"),
+                        rs.getString("isLimitQuantity"),
+                        rs.getInt("price"),
+                        rs.getInt("discount"),
+                        0
+                ),subCatehgoryIdx
+        );
+    }
 
+    public List<ProductMiniInfoRes> getProductsByCategory(int categoryIdx){
+        String query = "select *\n" +
+                "from Product\n" +
+                "where subCategoryIdx=?;";
+        return this.jdbcTemplate.query(query,
+                (rs,rowNum) -> new ProductMiniInfoRes(rs.getInt("productIdx"),
+                        rs.getString("title"),
+                        rs.getString("profileImageUrl"),
+                        rs.getString("isKurlyOnly"),
+                        rs.getString("isLimitQuantity"),
+                        rs.getInt("price"),
+                        rs.getInt("discount"),
+                        0
+                        ),categoryIdx
+        );
     }
 
 

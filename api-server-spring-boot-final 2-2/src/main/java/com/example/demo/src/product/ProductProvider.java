@@ -3,6 +3,7 @@ package com.example.demo.src.product;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.src.product.model.ProductInfoRes;
+import com.example.demo.src.product.model.ProductMiniInfoRes;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
 import org.slf4j.Logger;
@@ -37,5 +38,33 @@ public class ProductProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+    public List<ProductMiniInfoRes> getProductsByCategory(int categoryIdx) throws BaseException{
+        try{
+            List<ProductMiniInfoRes> getProductMiniInfoRes = productDao.getProductsByCategory(categoryIdx);
+            for(int i=0;i<getProductMiniInfoRes.size();i++){
+                getProductMiniInfoRes.get(i).setDiscountAfterPrice(getProductMiniInfoRes.get(i).getPrice()*
+                        (100-getProductMiniInfoRes.get(i).getDiscount())/100);
+            }
+            return getProductMiniInfoRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<ProductMiniInfoRes> getProductsBySubCategory(int subCategoryIdx) throws BaseException{
+        try{
+            List<ProductMiniInfoRes> getProductMiniInfoRes = productDao.getProductsBySubCategory(subCategoryIdx);
+            for(int i=0;i<getProductMiniInfoRes.size();i++){
+                getProductMiniInfoRes.get(i).setDiscountAfterPrice(getProductMiniInfoRes.get(i).getPrice()*
+                        (100-getProductMiniInfoRes.get(i).getDiscount())/100);
+            }
+            return getProductMiniInfoRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
 
 }

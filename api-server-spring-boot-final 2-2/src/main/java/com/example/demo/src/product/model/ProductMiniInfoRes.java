@@ -14,7 +14,9 @@ public class ProductMiniInfoRes {
     private int productIdx;
     private String title;
     private String profileImgUrl;
-    private Boolean isKurlyOnly;
+    private String isKurlyOnly;
+    private String isLimitQuantity;
     private int price;
     private int discount;
+    private int discountAfterPrice;
 }
