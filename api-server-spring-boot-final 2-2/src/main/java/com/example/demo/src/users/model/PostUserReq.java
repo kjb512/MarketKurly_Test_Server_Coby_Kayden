@@ -36,7 +36,7 @@ public class PostUserReq {
     private String birthDate;
     @Pattern(regexp = "[MF]", message = "M/F 중 하나를 입력하여야 합니다.")
     private String gender;
-    @Pattern(regexp = "^[a-z]+[a-z0-9]{5,15}", message = "6자 이상 영문 혹은 영문과 숫자를 조합")
+
     private String recommender;
     @Size(max = 45)
     private String eventName;
