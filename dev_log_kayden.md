@@ -74,3 +74,15 @@
 # 2022-01-13(몸상태가 안좋아서 작업을 많이 못했습니다.)
 * User API 수정
   * 프론트쪽에서 GET의 경우 리퀘스트 바디에 안들어가는 문제가 있어서 쿼리스트링으로 변경
+
+# 2022-01-14
+* ERD 수정
+  * Order API를 만들기 위해 필요한 컬럼들을 Order 테이블에 추가
+    * deliveryInfoIdx(fk), productPrice, amountOfPayment, discountPrice, deliveryPrice, deliveryStatus, couponDiscount, rewardDiscount
+  * 기본 배송지 구현을 위한 테이블 수정
+    * DeliveryInfo 테이블에 isDefaultAdress 추가 
+* User API 수정
+  * 프론트 요청으로 GET을 사용하는 API 전부 RequestBody -> QueryString 으로 교체
+  * 프론트 요청으로 User (추천인) validaion 삭제
+* Order API 구현 15%
+  * 주문하기 구현
