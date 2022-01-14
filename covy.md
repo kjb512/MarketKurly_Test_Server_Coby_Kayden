@@ -145,4 +145,12 @@
 - Product 상세정보 조회 구현
 - product category로 리스트 조회 구현 시작
 - covy->dev merge 중에 .idea 폴더 conflict -> dev에 idea로 덮어씌워 해결
+
+
+
+01/14일 개발일지
+
+- category, subcategory 조회 api 개발 완료
+
+- 
 - 
