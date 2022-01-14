@@ -29,7 +29,13 @@ public class ProductProvider {
         this.productDao = productDao;
         this.jwtService = jwtService;
     }
+
     public ProductInfoRes getProduct(int productIdx) throws BaseException{
+
+        if(productDao.checkProductIdx(productIdx)==0){
+            throw new BaseException(GET_PRODUCT_IDX_NOT_EXIST);
+        }
+
         try{
             ProductInfoRes getProductRes = productDao.getProductByIdx(productIdx);
             return getProductRes;
@@ -38,9 +44,16 @@ public class ProductProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
     public List<ProductMiniInfoRes> getProductsByCategory(int categoryIdx) throws BaseException{
+
+        if(productDao.checkCategoryIdx(categoryIdx)==0){
+            throw new BaseException(GET_PRODUCT_CATEGORY_NOT_EXIST);
+        }
+
         try{
             List<ProductMiniInfoRes> getProductMiniInfoRes = productDao.getProductsByCategory(categoryIdx);
+
             for(int i=0;i<getProductMiniInfoRes.size();i++){
                 getProductMiniInfoRes.get(i).setDiscountAfterPrice(getProductMiniInfoRes.get(i).getPrice()*
                         (100-getProductMiniInfoRes.get(i).getDiscount())/100);
@@ -53,6 +66,11 @@ public class ProductProvider {
     }
 
     public List<ProductMiniInfoRes> getProductsBySubCategory(int subCategoryIdx) throws BaseException{
+
+        if(productDao.checkSubCategoryIdx(subCategoryIdx)==0){
+            throw new BaseException(GET_PRODUCT_SUB_CATEGORY_NOT_EXIST);
+        }
+
         try{
             List<ProductMiniInfoRes> getProductMiniInfoRes = productDao.getProductsBySubCategory(subCategoryIdx);
             for(int i=0;i<getProductMiniInfoRes.size();i++){
@@ -61,6 +79,7 @@ public class ProductProvider {
             }
             return getProductMiniInfoRes;
         }
+
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }

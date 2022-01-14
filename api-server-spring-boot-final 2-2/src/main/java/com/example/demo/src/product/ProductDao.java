@@ -124,6 +124,20 @@ public class ProductDao {
                         ),categoryIdx
         );
     }
+    public int checkProductIdx(int proudctIdx){
+        String query = "select exists(select * from Product where productIdx =?);";
+        return this.jdbcTemplate.queryForObject(query,int.class,proudctIdx);
+    }
+
+    public int checkCategoryIdx(int proudctIdx){
+        String query = "select exists(select * from Category where categoryIdx =?);";
+        return this.jdbcTemplate.queryForObject(query,int.class,proudctIdx);
+    }
+
+    public int checkSubCategoryIdx(int proudctIdx){
+        String query = "select exists(select * from SubCategory where subCategoryIdx =?);";
+        return this.jdbcTemplate.queryForObject(query,int.class,proudctIdx);
+    }
 
 
 }
