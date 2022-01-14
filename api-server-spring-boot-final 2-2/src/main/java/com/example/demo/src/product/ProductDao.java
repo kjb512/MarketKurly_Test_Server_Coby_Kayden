@@ -110,8 +110,8 @@ public class ProductDao {
 
     public List<ProductMiniInfoRes> getProductsByCategory(int categoryIdx){
         String query = "select *\n" +
-                "from Product\n" +
-                "where subCategoryIdx=?;";
+                "from Product left join SubCategory SC on Product.subCategoryIdx = SC.subCategoryIdx\n" +
+                "where CategoryIdx=?;";
         return this.jdbcTemplate.query(query,
                 (rs,rowNum) -> new ProductMiniInfoRes(rs.getInt("productIdx"),
                         rs.getString("title"),

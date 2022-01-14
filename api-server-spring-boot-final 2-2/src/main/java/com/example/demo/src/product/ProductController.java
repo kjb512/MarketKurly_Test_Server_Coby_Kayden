@@ -46,6 +46,7 @@ public class ProductController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
     @ResponseBody
     @GetMapping("/category/{categoryIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
     public BaseResponse<List<ProductMiniInfoRes>> getProductByCategory(@PathVariable("categoryIdx") int categoryIdx) {
@@ -57,6 +58,7 @@ public class ProductController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
     @ResponseBody
     @GetMapping("/subCategory/{subCategoryIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
     public BaseResponse<List<ProductMiniInfoRes>> getProductBySubCategory(@PathVariable("subCategoryIdx") int subCategoryIdx ) {
