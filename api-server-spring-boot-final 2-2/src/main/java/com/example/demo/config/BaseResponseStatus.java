@@ -16,6 +16,7 @@ public enum BaseResponseStatus {
     /**
      * 2000 : Request 오류
      */
+
     // Common
     REQUEST_ERROR(false, 2000, "입력값을 확인해주세요."),
     EMPTY_JWT(false, 2001, "JWT를 입력해주세요."),
@@ -31,6 +32,14 @@ public enum BaseResponseStatus {
     POST_USERS_INVALID_EMAIL(false, 2016, "이메일 형식을 확인해주세요."),
     POST_USERS_EXISTS_EMAIL(false,2017,"중복된 이메일입니다."),
 
+    // products
+    GET_PRODUCT_IDX_NOT_EXIST(false, 2101, "id값에 해당하는 product가 없습니다"),
+
+    //products/category
+    GET_PRODUCT_CATEGORY_NOT_EXIST(false, 2111, "id값에 해당하는 category가 없습니다"),
+
+    //products/subCategory
+    GET_PRODUCT_SUB_CATEGORY_NOT_EXIST(false, 2121, "id값에 해당하는 subCategory가 없습니다"),
 
 
     /**
