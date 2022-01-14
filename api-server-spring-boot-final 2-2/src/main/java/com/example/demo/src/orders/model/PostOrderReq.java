@@ -9,5 +9,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PostOrderReq {
-    private
+    private int userIdx;
+    private int cartIdx;
+    private int paymentType;
+    private int delieveryInfoIdx;
+    private int productPrice;
+    private int discountPrice;
+    private int deliveryPrice;
+    private int couponDiscount;
+    private int rewardDiscount;
+    private int amountOfPayment;
 }
