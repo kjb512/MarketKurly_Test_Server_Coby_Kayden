@@ -86,3 +86,20 @@
   * 프론트 요청으로 User (추천인) validaion 삭제
 * Order API 구현 15%
   * 주문하기 구현
+
+# 2022-01-15
+* ERD 수정
+  * DeliveryInfo테이블과 Address테이블의 기능과 컬럼이 비슷하다고 판단하여 DeliveryInfo로 통합
+    * DeliveryInfo 테이블에 adress 컬럼 추가
+* 백엔드 회의
+  * Cart 테이블을 만들고 있는 코비에게 Order테이블을 만들기 위해 필요한 count컬럼을 요청
+  * deliveryInfoIdx 컬럼이 Order테이블 보다는 Cart테이블에 있는것이 맞다고 판단하여 코비에게 요청
+    * deliveryInfoIdx 컬럼을 Order테이블에서 Cart테이블로 이동
+* Order API 구현 90%
+  * 주문내역 조회, 주문내역 상세 조회 구현
+* DeliveryInfo API 구현 80%
+  * 배송지 추가하기 구현
+  * 배송지 조회하기 구현
+  * 배송지 수정하기 구현
+* API template 작성
+  * Order API 작성

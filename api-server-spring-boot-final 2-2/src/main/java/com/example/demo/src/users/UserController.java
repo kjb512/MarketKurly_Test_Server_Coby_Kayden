@@ -157,11 +157,7 @@ public class UserController {
     @GetMapping("/check/id")
     public BaseResponse<GetIdRes> authId(@RequestParam String id)  {
         //Validation
-//        if (errors.hasErrors()) {
-//            // validation과 정규식은 PostUserReq에서 Validator 사용
-//            // validation 에러 메세지 처리
-//            return new BaseResponse<>(Constant.refineErrors(errors));
-//        }
+
         try {
             GetIdRes getAuthRes = userService.doubleCheckId(id);
             return new BaseResponse<>(getAuthRes);
