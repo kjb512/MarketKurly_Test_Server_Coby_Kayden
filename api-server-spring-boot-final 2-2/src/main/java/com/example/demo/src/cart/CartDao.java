@@ -23,4 +23,19 @@ public class CartDao {
         this.jdbcTemplate.update(query,userIdx);
     }
 
+    // get product
+    public void getUserCart(int userIdx){
+        String query = "select *, count(productIdx) as countProduct\n" +
+                "from Cart\n" +
+                "         right join CartProduct CP on Cart.cartIdx = CP.cartIdx\n" +
+                "GROUP BY CP.productIdx, CP.status, Cart.userIdx\n" +
+                "HAVING CP.status = 'ACTIVE'\n" +
+                "   and Cart.userIdx = ?;";
+        this.jdbcTemplate.update(query,userIdx);
+    }
+
+    // add product
+
+    // delete product
+    
 }
