@@ -150,7 +150,12 @@
 
 01/14일 개발일지
 
-- category, subcategory 조회 api 개발 완료
+- category, subcategory 조회 api 개발 완료 및 명세서 작성
+- cart api 개발 시작
+- cart product delete는 status 변경으로
 
-- 
+
+
+01/15일 개발일지
+
 - 
