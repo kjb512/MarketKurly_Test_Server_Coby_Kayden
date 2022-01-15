@@ -26,7 +26,7 @@ public class OrderDao {
 
     public int createOrder(PostOrderReq postOrderReq) {
         String createOrderQuery = "insert into `Order`(userIdx, cartIdx, paymentType, productPrice, amountOfPayment, discountPrice, deliveryPrice, couponDiscount, rewardDiscount, deliveryInfoIdx) values(?,?,?,?,?,?,?,?,?,?)";
-        Object[] createOrderParams = new Object[]{postOrderReq.getUserIdx(), postOrderReq.getCartIdx(), postOrderReq.getPaymentType(), postOrderReq.getProductPrice(), postOrderReq.getAmountOfPayment(), postOrderReq.getDiscountPrice(), postOrderReq.getDeliveryPrice(),postOrderReq.getCouponDiscount(),postOrderReq.getRewardDiscount(), postOrderReq.getDelieveryInfoIdx()};
+        Object[] createOrderParams = new Object[]{postOrderReq.getUserIdx(), postOrderReq.getCartIdx(), postOrderReq.getPaymentType(), postOrderReq.getProductPrice(), postOrderReq.getAmountOfPayment(), postOrderReq.getDiscountPrice(), postOrderReq.getDeliveryPrice(),postOrderReq.getCouponDiscount(),postOrderReq.getRewardDiscount(), postOrderReq.getDeliveryInfoIdx()};
         this.jdbcTemplate.update(createOrderQuery, createOrderParams);
 
         String lastInserIdQuery = "select last_insert_id()";
@@ -80,7 +80,14 @@ public class OrderDao {
     }
 
     public GetOrderRes getOrder(int orderIdx) {
-        String getOrderQuery = "select O.productPrice, O.deliveryPrice, O.discountPrice, O.couponDiscount, O.rewardDiscount, O.amountOfPayment, O.orderIdx, U.name as userName, O.createAt as paymentDate, DI.receiver, DI.receiverPhone, DT.name as deliveryType, concat(DI.address,' ', DI.extraAddress ) as address, DI.afterMessageDeliveryTime from `Order` O left join User U on U.userIdx = O.userIdx left join Cart C on O.cartIdx = C.cartIdx left join DeliveryInfo DI on C.deliveryInfoIdx = DI.deliveryInfoIdx left join DeliveryType DT on DI.deliveryType = DT.deliverTypeIdx where O.orderIdx =?";
+        String getOrderQuery = "select O.productPrice, O.deliveryPrice, O.discountPrice, O.couponDiscount, O.rewardDiscount, O.amountOfPayment, O.orderIdx, " +
+                "U.name as userName, O.createAt as paymentDate, DI.receiver, DI.receiverPhone, DT.name as deliveryType, concat(DI.address,' ', DI.extraAddress ) as address, DI.afterMessageDeliveryTime " +
+                "from `Order` O " +
+                "left join User U on U.userIdx = O.userIdx " +
+                "left join Cart C on O.cartIdx = C.cartIdx " +
+                "left join DeliveryInfo DI on C.deliveryInfoIdx = DI.deliveryInfoIdx " +
+                "left join DeliveryType DT on DI.deliveryType = DT.deliverTypeIdx " +
+                "where O.orderIdx =?";
         int getOrderParams = orderIdx;
         return this.jdbcTemplate.queryForObject(getOrderQuery,
                 (rs, rowNum) -> new GetOrderRes(

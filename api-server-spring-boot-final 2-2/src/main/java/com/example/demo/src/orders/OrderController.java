@@ -82,7 +82,7 @@ public class OrderController {
         }
     }
 
-    @GetMapping("user/{userIdx}")
+    @GetMapping("users/{userIdx}")
     public BaseResponse<List<GetOrdersRes>> getUsers(@PathVariable int userIdx) {
         try{
             int userIdxByJwt = jwtService.getUserIdx();

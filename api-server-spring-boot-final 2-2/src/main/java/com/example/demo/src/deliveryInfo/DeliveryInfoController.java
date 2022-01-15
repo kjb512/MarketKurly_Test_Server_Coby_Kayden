@@ -30,7 +30,7 @@ public class DeliveryInfoController {
 
 
     @PostMapping("")
-    public BaseResponse<PostDeliveyInfoRes> createDeliveryInfo(@Validated @RequestBody PostDeliveyInfoReq postDeliveyInfoReq, Errors errors) {
+    public BaseResponse<PostDeliveyInfoRes> createDeliveryInfo(@Validated @RequestBody PostDeliveyInfoReq postDeliveyInfoReq, Errors errors, @RequestParam(required = false) String isDefaultAddress) {
         //TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
 
         //Validation
@@ -47,7 +47,8 @@ public class DeliveryInfoController {
             if(postDeliveyInfoReq.getUserIdx() != userIdxByJwt){
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
-            PostDeliveyInfoRes postDeliveyInfoRes = deliveryInfoService.createDeliveryInfo(postDeliveyInfoReq);
+
+            PostDeliveyInfoRes postDeliveyInfoRes = deliveryInfoService.createDeliveryInfo(postDeliveyInfoReq, isDefaultAddress);
             return new BaseResponse<>(postDeliveyInfoRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -71,20 +72,18 @@ public class DeliveryInfoController {
         }
     }
 
-    @PatchMapping("/{userIdx}")
-    public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody PatchDeliveryInfoReq patchDeliveryInfoReq, @RequestParam(required = false) String isDefaultAdress){
+    @PatchMapping("/{deliveryInfoIdx}")
+    public BaseResponse<String> modifyUserName(@PathVariable("deliveryInfoIdx") int deliveryInfoIdx, @RequestBody PatchDeliveryInfoReq patchDeliveryInfoReq, @RequestParam(required = false) String isDefaultAddress){
         try {
             //jwt에서 idx 추출.
             int userIdxByJwt = jwtService.getUserIdx();
             //userIdx와 접근한 유저가 같은지 확인
-            if(userIdx != userIdxByJwt){
+            int userIdxByDeliveryInfo = deliveryInfoProvider.getUserIdx(deliveryInfoIdx);
+            if(userIdxByDeliveryInfo != userIdxByJwt){
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
-            if(isDefaultAdress == "T"){
-                String result = "";
-                return new BaseResponse<>(result);
-            }
-            deliveryInfoService.modifyDeliveryInfo(userIdx, patchDeliveryInfoReq);
+
+            deliveryInfoService.modifyDeliveryInfo(deliveryInfoIdx, patchDeliveryInfoReq, isDefaultAddress);
 
             String result = "";
             return new BaseResponse<>(result);

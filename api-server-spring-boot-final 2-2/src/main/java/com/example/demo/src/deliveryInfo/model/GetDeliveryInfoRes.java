@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetDeliveryInfoRes {
-    private String adress;
+    private String address;
     private   String receiver;
     private String receiverPhone;
     private String deliveryType;

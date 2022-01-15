@@ -31,4 +31,13 @@ public class DeliveryInfoProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public int getUserIdx(int deliveryInfoIdx) throws BaseException {
+        try {
+            int userIdx = deliveryInfoDao.getUserIdx(deliveryInfoIdx);
+            return userIdx;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

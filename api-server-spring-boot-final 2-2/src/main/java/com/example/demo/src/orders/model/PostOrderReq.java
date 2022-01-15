@@ -12,7 +12,7 @@ public class PostOrderReq {
     private int userIdx;
     private int cartIdx;
     private int paymentType;
-    private int delieveryInfoIdx;
+    private int deliveryInfoIdx;
     private int productPrice;
     private int discountPrice;
     private int deliveryPrice;
