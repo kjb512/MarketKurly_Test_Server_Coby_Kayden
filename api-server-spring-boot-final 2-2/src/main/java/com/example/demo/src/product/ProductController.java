@@ -36,7 +36,7 @@ public class ProductController {
     }
 
     @ResponseBody
-    @GetMapping("/{productIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    @GetMapping("/{productIdx}")
     public BaseResponse<ProductInfoRes> getProductByIdx(@PathVariable("productIdx") int productIdx) {
         // Get Users
         try{
@@ -48,7 +48,7 @@ public class ProductController {
     }
 
     @ResponseBody
-    @GetMapping("/category/{categoryIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    @GetMapping("/category/{categoryIdx}")
     public BaseResponse<List<ProductMiniInfoRes>> getProductByCategory(@PathVariable("categoryIdx") int categoryIdx) {
         // Get Users
         try{
@@ -60,7 +60,7 @@ public class ProductController {
     }
 
     @ResponseBody
-    @GetMapping("/subCategory/{subCategoryIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    @GetMapping("/subCategory/{subCategoryIdx}")
     public BaseResponse<List<ProductMiniInfoRes>> getProductBySubCategory(@PathVariable("subCategoryIdx") int subCategoryIdx ) {
         // Get Users
         try{
