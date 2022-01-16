@@ -41,6 +41,9 @@ public enum BaseResponseStatus {
     //products/subCategory
     GET_PRODUCT_SUB_CATEGORY_NOT_EXIST(false, 2121, "id값에 해당하는 subCategory가 없습니다"),
 
+    //carts
+    USER_CART_NOT_EXIST(false,2301,"userId에 해당하는 활성화된 cart가 없습니다"),
+
 
     /**
      * 3000 : Response 오류
