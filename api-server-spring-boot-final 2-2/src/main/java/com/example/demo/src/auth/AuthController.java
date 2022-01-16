@@ -25,16 +25,16 @@ public class AuthController {
 
     //핸드폰 인증
     @GetMapping("/phone")
-    public BaseResponse<GetAuthRes> authPhone (@Validated @RequestBody GetAuthReq getAuthReq, Errors errors) {
+    public BaseResponse<GetAuthRes> authPhone (@RequestParam String phone) {
         //Validation
-        if (errors.hasErrors()) {
-            // validation과 정규식은 PostUserReq에서 Validator 사용
-            // validation 에러 메세지 처리
-            return new BaseResponse<>(Constant.refineErrors(errors));
-        }
+//        if (errors.hasErrors()) {
+//            // validation과 정규식은 PostUserReq에서 Validator 사용
+//            // validation 에러 메세지 처리
+//            return new BaseResponse<>(Constant.refineErrors(errors));
+//        }
 
         try {
-            GetAuthRes getAuthRes = authService.sendSms(getAuthReq);
+            GetAuthRes getAuthRes = authService.sendSms(phone);
             return new BaseResponse<>(getAuthRes);
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));

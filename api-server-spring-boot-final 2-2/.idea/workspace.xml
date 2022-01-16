@@ -130,10 +130,14 @@
       <workItem from="1641614248770" duration="244000" />
       <workItem from="1641614605935" duration="32000" />
 <<<<<<< HEAD
+      <workItem from="1641918831252" duration="11236000" />
+=======
+<<<<<<< HEAD
       <workItem from="1641902756047" duration="29340000" />
       <workItem from="1642057468729" duration="346000" />
 =======
       <workItem from="1641918831252" duration="8513000" />
+>>>>>>> dev
 >>>>>>> dev
     </task>
     <task id="LOCAL-00001" summary="feat : add products dto">
