@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.example.demo.config.BaseResponseStatus.INVALID_USER_JWT;
+import static com.example.demo.config.BaseResponseStatus.PATCH_DELIVERYINFO_IS_DEFAULT_ADDRESS;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -48,7 +49,7 @@ public class OrderController {
         }
     }
 
-    @GetMapping("{orderIdx}/products")
+    @GetMapping("/{orderIdx}/products")
     public BaseResponse<List<GetOrderProductRes>> getOrderProduct(@PathVariable int orderIdx) {
         try{
             int userIdxByJwt = jwtService.getUserIdx();
@@ -65,7 +66,7 @@ public class OrderController {
         }
     }
 
-    @GetMapping("{orderIdx}")
+    @GetMapping("/{orderIdx}")
     public BaseResponse<GetOrderRes> getOrder(@PathVariable int orderIdx) {
         try{
             int userIdxByJwt = jwtService.getUserIdx();
@@ -82,7 +83,7 @@ public class OrderController {
         }
     }
 
-    @GetMapping("users/{userIdx}")
+    @GetMapping("/users/{userIdx}")
     public BaseResponse<List<GetOrdersRes>> getUsers(@PathVariable int userIdx) {
         try{
             int userIdxByJwt = jwtService.getUserIdx();
@@ -94,6 +95,25 @@ public class OrderController {
             List<GetOrdersRes> getOrderRes = orderProvider.getOrdersByUser(userIdx);
             return new BaseResponse<>(getOrderRes);
         } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @PatchMapping("/deletion/{orderIdx}")
+    public BaseResponse<String> cancelOrder(@PathVariable("orderIdx") int orderIdx){
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            int userIdxByOrder = orderProvider.getUserIdx(orderIdx);
+            if(userIdxByOrder != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+
+            orderService.cancelOrder(orderIdx);
+
+            String result = "";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
     }

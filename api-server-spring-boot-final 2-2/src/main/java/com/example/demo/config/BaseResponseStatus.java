@@ -41,7 +41,11 @@ public enum BaseResponseStatus {
     //products/subCategory
     GET_PRODUCT_SUB_CATEGORY_NOT_EXIST(false, 2121, "id값에 해당하는 subCategory가 없습니다"),
 
+    //deliveryInfo
     PATCH_DELIVERYINFO_IS_DEFAULT_ADDRESS(false, 2030, "기본배송지는 삭제되지않습니다"),
+
+    //Order
+    PATCH_CANCEL_ORDER_CHECK_STATUS(false,2040, "배송중에는 취소할 수 없습니다."),
 
 
     /**
@@ -67,7 +71,10 @@ public enum BaseResponseStatus {
     MODIFY_FAIL_DELIVERYINFO(false,4015,"배송지 수정 실패"),
 
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
-    PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다.");
+    PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다."),
+
+    //Order
+    DELETION_FAIL_ORDER(false,4020,"주문취소 실패");
 
 
     // 5000 : 필요시 만들어서 쓰세요

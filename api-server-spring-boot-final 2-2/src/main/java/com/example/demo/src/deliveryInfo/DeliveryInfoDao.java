@@ -40,7 +40,7 @@ public class DeliveryInfoDao {
     public List<GetDeliveryInfoRes> getDeliveryInfoByUser(int userIdx) {
         String getDeliveryInfoQuery = "select deliveryInfoIdx,isDefaultAddress, concat(address,' ', extraAddress) as address, receiver, receiverPhone, DT.name as deliveryType " +
                 "from DeliveryInfo DI " +
-                "left join DeliveryType DT on DT.deliverTypeIdx = DI.deliveryType " +
+                "inner join DeliveryType DT on DT.deliverTypeIdx = DI.deliveryType " +
                 "where userIdx = ? and DI.status = 'ACTIVE'";
         int getDeliveryInfoParam = userIdx;
         return this.jdbcTemplate.query(getDeliveryInfoQuery,
@@ -57,7 +57,7 @@ public class DeliveryInfoDao {
     public GetDeliveryInfoRes getDeliveryInfo(int deliveryInfoIdx) {
         String getDeliveryInfoQuery = "select deliveryInfoIdx,isDefaultAddress, concat(address,' ', extraAddress) as address, receiver, receiverPhone, DT.name as deliveryType " +
                 "from DeliveryInfo DI " +
-                "left join DeliveryType DT on DT.deliverTypeIdx = DI.deliveryType " +
+                "inner join DeliveryType DT on DT.deliverTypeIdx = DI.deliveryType " +
                 "where deliveryInfoIdx = ?";
         int getDeliveryInfoParam = deliveryInfoIdx;
         return this.jdbcTemplate.queryForObject(getDeliveryInfoQuery,

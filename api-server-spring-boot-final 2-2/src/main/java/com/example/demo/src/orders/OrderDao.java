@@ -36,10 +36,11 @@ public class OrderDao {
     public List<GetOrdersRes> getOrdersByUser(int userIdx) {
         String getOrdersByUserQuery = "select O.orderIdx,P.title, CP.count as type,count(CP.cartIdx)-1 as cases, O.createAt, P2.name, O.amountOfPayment, O.deliveryStatus " +
                 "from `Order` O " +
-                "left join CartProduct CP on O.cartIdx = CP.cartIdx " +
-                "left join Product P on P.productIdx = CP.productIdx " +
-                "left join Payment P2 on O.paymentType = P2.paymentIdx " +
-                "where O.userIdx = ?";
+                "inner join CartProduct CP on O.cartIdx = CP.cartIdx " +
+                "inner join Product P on P.productIdx = CP.productIdx " +
+                "inner join Payment P2 on O.paymentType = P2.paymentIdx " +
+                "where O.userIdx = ? and O.status = 'ACTIVE' " +
+                "group by O.orderIdx";
         int getOrdersByUserParams = userIdx;
         return this.jdbcTemplate.query(getOrdersByUserQuery,
                 (rs, rowNum) -> new GetOrdersRes(
@@ -57,9 +58,9 @@ public class OrderDao {
     public List<GetOrderProductRes> getOrderProduct(int orderIdx) {
         String getOrderProductQuery = "select CP.productIdx, P.title, P.price*CP.count as price, P.discount, CP.count, PT.name as packagingType " +
                 "from `Order` O " +
-                "left join CartProduct CP on O.cartIdx = CP.cartIdx " +
-                "left join Product P on P.productIdx = CP.productIdx " +
-                "left join PackagingType PT on P.packagingTypeIdx = PT.packagingTypeIdx " +
+                "inner join CartProduct CP on O.cartIdx = CP.cartIdx " +
+                "inner join Product P on P.productIdx = CP.productIdx " +
+                "inner join PackagingType PT on P.packagingTypeIdx = PT.packagingTypeIdx " +
                 "where orderIdx = ?";
         int getOrderProductParams = orderIdx;
         return this.jdbcTemplate.query(getOrderProductQuery,
@@ -79,14 +80,20 @@ public class OrderDao {
         return this.jdbcTemplate.queryForObject(getUserIdxQuery, int.class, getUserIdxParams);
     }
 
+    public String getOrderDeliveryStatus(int orderIdx) {
+        String getOrderDeliveryStatusQuery = "select deliveryStatus from `Order` where orderIdx = ?";
+        int getOrderDeliveryStatusParams = orderIdx;
+        return this.jdbcTemplate.queryForObject(getOrderDeliveryStatusQuery, String.class, getOrderDeliveryStatusParams);
+    }
+
     public GetOrderRes getOrder(int orderIdx) {
         String getOrderQuery = "select O.productPrice, O.deliveryPrice, O.discountPrice, O.couponDiscount, O.rewardDiscount, O.amountOfPayment, O.orderIdx, " +
                 "U.name as userName, O.createAt as paymentDate, DI.receiver, DI.receiverPhone, DT.name as deliveryType, concat(DI.address,' ', DI.extraAddress ) as address, DI.afterMessageDeliveryTime " +
                 "from `Order` O " +
-                "left join User U on U.userIdx = O.userIdx " +
-                "left join Cart C on O.cartIdx = C.cartIdx " +
-                "left join DeliveryInfo DI on C.deliveryInfoIdx = DI.deliveryInfoIdx " +
-                "left join DeliveryType DT on DI.deliveryType = DT.deliverTypeIdx " +
+                "inner join User U on U.userIdx = O.userIdx " +
+                "inner join Cart C on O.cartIdx = C.cartIdx " +
+                "inner join DeliveryInfo DI on C.deliveryInfoIdx = DI.deliveryInfoIdx " +
+                "inner join DeliveryType DT on DI.deliveryType = DT.deliverTypeIdx " +
                 "where O.orderIdx =?";
         int getOrderParams = orderIdx;
         return this.jdbcTemplate.queryForObject(getOrderQuery,
@@ -107,4 +114,12 @@ public class OrderDao {
                         rs.getString("afterMessageDeliveryTime")),
                 getOrderParams);
     }
+
+    public int cancelOrder(int orderIdx) {
+        String cancelOrderQuery = "update `Order` set status = 'DELETED' where orderIdx = ? ";
+        int cancelOrderParams = orderIdx;
+
+        return this.jdbcTemplate.update(cancelOrderQuery,cancelOrderParams);
+    }
+
 }

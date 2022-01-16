@@ -56,4 +56,13 @@ public class OrderProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public String getOrderDeliveryStatus(int orderIdx) throws BaseException {
+        try {
+            String status = orderDao.getOrderDeliveryStatus(orderIdx);
+            return status;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
