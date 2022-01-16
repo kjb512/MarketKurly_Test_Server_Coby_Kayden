@@ -22,15 +22,26 @@ public class DeliveryInfoProvider {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    public List<GetDeliveryInfoRes> getDeliveryInfo(int userIdx) throws BaseException {
+    public List<GetDeliveryInfoRes> getDeliveryInfoByUser(int userIdx) throws BaseException {
         try{
-            List<GetDeliveryInfoRes> getDeliveryInfoRes = deliveryInfoDao.getDeliveryInfo(userIdx);
+            List<GetDeliveryInfoRes> getDeliveryInfoRes = deliveryInfoDao.getDeliveryInfoByUser(userIdx);
             return getDeliveryInfoRes;
         }
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public GetDeliveryInfoRes getDeliveryInfo(int deliveryInfoIdx) throws BaseException {
+        try{
+            GetDeliveryInfoRes getDeliveryInfoRes = deliveryInfoDao.getDeliveryInfo(deliveryInfoIdx);
+            return getDeliveryInfoRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
 
     public int getUserIdx(int deliveryInfoIdx) throws BaseException {
         try {
@@ -40,4 +51,14 @@ public class DeliveryInfoProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public String getIsDefaultAddress(int deliveryInfoIdx) throws BaseException {
+        try {
+            String isDefaultAddress = deliveryInfoDao.getIsDefaultAddress(deliveryInfoIdx);
+            return isDefaultAddress;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
 }

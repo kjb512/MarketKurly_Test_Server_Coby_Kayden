@@ -41,6 +41,8 @@ public enum BaseResponseStatus {
     //products/subCategory
     GET_PRODUCT_SUB_CATEGORY_NOT_EXIST(false, 2121, "id값에 해당하는 subCategory가 없습니다"),
 
+    PATCH_DELIVERYINFO_IS_DEFAULT_ADDRESS(false, 2030, "기본배송지는 삭제되지않습니다"),
+
 
     /**
      * 3000 : Response 오류

@@ -37,14 +37,33 @@ public class DeliveryInfoDao {
         return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
     }
 
-    public List<GetDeliveryInfoRes> getDeliveryInfo(int userIdx) {
-        String getDeliveryInfoQuery = "select concat(address,' ', extraAddress) as address, receiver, receiverPhone, DT.name as deliveryType " +
-                "from DeliveryInfo " +
-                "left join DeliveryType DT on DT.deliverTypeIdx = DeliveryInfo.deliveryType " +
-                "where userIdx = ?";
+    public List<GetDeliveryInfoRes> getDeliveryInfoByUser(int userIdx) {
+        String getDeliveryInfoQuery = "select deliveryInfoIdx,isDefaultAddress, concat(address,' ', extraAddress) as address, receiver, receiverPhone, DT.name as deliveryType " +
+                "from DeliveryInfo DI " +
+                "left join DeliveryType DT on DT.deliverTypeIdx = DI.deliveryType " +
+                "where userIdx = ? and DI.status = 'ACTIVE'";
         int getDeliveryInfoParam = userIdx;
         return this.jdbcTemplate.query(getDeliveryInfoQuery,
                 (rs, rowNum) -> new GetDeliveryInfoRes(
+                        rs.getInt("deliveryInfoIdx"),
+                        rs.getString("isDefaultAddress"),
+                        rs.getString("address"),
+                        rs.getString("receiver"),
+                        rs.getString("receiverPhone"),
+                        rs.getString("deliveryType")),
+                getDeliveryInfoParam);
+    }
+
+    public GetDeliveryInfoRes getDeliveryInfo(int deliveryInfoIdx) {
+        String getDeliveryInfoQuery = "select deliveryInfoIdx,isDefaultAddress, concat(address,' ', extraAddress) as address, receiver, receiverPhone, DT.name as deliveryType " +
+                "from DeliveryInfo DI " +
+                "left join DeliveryType DT on DT.deliverTypeIdx = DI.deliveryType " +
+                "where deliveryInfoIdx = ?";
+        int getDeliveryInfoParam = deliveryInfoIdx;
+        return this.jdbcTemplate.queryForObject(getDeliveryInfoQuery,
+                (rs, rowNum) -> new GetDeliveryInfoRes(
+                        rs.getInt("deliveryInfoIdx"),
+                        rs.getString("isDefaultAddress"),
                         rs.getString("address"),
                         rs.getString("receiver"),
                         rs.getString("receiverPhone"),
@@ -80,4 +99,19 @@ public class DeliveryInfoDao {
         int getUserIdxParams = deliveryInfoIdx;
         return this.jdbcTemplate.queryForObject(getUserIdxQuery, int.class, getUserIdxParams);
     }
+
+    public String getIsDefaultAddress(int deliveryInfoIdx) {
+        String getIsDefaultAddressQuery = "select isDefaultAddress from DeliveryInfo where deliveryInfoIdx = ?";
+        int getIsDefaultAddressParams = deliveryInfoIdx;
+        return this.jdbcTemplate.queryForObject(getIsDefaultAddressQuery, String.class, getIsDefaultAddressParams);
+    }
+
+    public int deleteDeliveryInfo(int deliveryInfoIdx) {
+        String deleteDeliveryInfoQuery = "update DeliveryInfo set status = 'DELETED' where deliveryInfoIdx = ? ";
+        int deleteDeliveryInfoParams = deliveryInfoIdx;
+
+        return this.jdbcTemplate.update(deleteDeliveryInfoQuery,deleteDeliveryInfoParams);
+    }
+
+
 }

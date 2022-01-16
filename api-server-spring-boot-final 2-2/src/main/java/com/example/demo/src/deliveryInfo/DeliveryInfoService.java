@@ -60,4 +60,15 @@ public class DeliveryInfoService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public void deleteDeliveryInfo(int deliveryInfoIdx) throws BaseException{
+        try{
+            int result = deliveryInfoDao.deleteDeliveryInfo(deliveryInfoIdx);
+            if(result == 0){
+                throw new BaseException(MODIFY_FAIL_DELIVERYINFO);
+            }
+        } catch(Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
