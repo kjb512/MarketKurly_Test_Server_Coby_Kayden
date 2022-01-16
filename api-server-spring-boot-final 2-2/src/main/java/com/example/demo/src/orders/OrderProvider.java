@@ -3,6 +3,7 @@ package com.example.demo.src.orders;
 import com.example.demo.config.BaseException;
 import com.example.demo.src.orders.model.GetOrderProductRes;
 import com.example.demo.src.orders.model.GetOrderRes;
+import com.example.demo.src.orders.model.GetOrdersOftenRes;
 import com.example.demo.src.orders.model.GetOrdersRes;
 import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,16 @@ public class OrderProvider {
         }
     }
 
+    public List<GetOrdersOftenRes> getOrdersOften(int userIdx) throws BaseException {
+        try{
+            List<GetOrdersOftenRes> getOrdersOftenRes = orderDao.getOrdersOften(userIdx);
+            return getOrdersOftenRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public int getUserIdx(int orderIdx) throws BaseException {
         try {
             int userIdx = orderDao.getUserIdx(orderIdx);
@@ -65,4 +76,5 @@ public class OrderProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
 }

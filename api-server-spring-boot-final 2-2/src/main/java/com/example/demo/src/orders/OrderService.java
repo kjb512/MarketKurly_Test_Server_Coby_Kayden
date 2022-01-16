@@ -31,7 +31,7 @@ public class OrderService {
     @Transactional(rollbackOn = BaseException.class)
     public void cancelOrder(int orderIdx) throws BaseException{
         String status = orderProvider.getOrderDeliveryStatus(orderIdx);
-        if("DELIVERING".equals(status)){
+        if("DELIVERING".equals(status) || "DELIVERED".equals(status)){
             throw new BaseException(PATCH_CANCEL_ORDER_CHECK_STATUS);
         }
         try{

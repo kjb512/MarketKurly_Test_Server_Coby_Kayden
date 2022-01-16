@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.example.demo.config.BaseResponseStatus.INVALID_USER_JWT;
-import static com.example.demo.config.BaseResponseStatus.PATCH_DELIVERYINFO_IS_DEFAULT_ADDRESS;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -84,7 +83,7 @@ public class OrderController {
     }
 
     @GetMapping("/users/{userIdx}")
-    public BaseResponse<List<GetOrdersRes>> getUsers(@PathVariable int userIdx) {
+    public BaseResponse<List<GetOrdersRes>> getOrdersByUser(@PathVariable int userIdx) {
         try{
             int userIdxByJwt = jwtService.getUserIdx();
             //userIdx와 접근한 유저가 같은지 확인
@@ -94,6 +93,22 @@ public class OrderController {
 
             List<GetOrdersRes> getOrderRes = orderProvider.getOrdersByUser(userIdx);
             return new BaseResponse<>(getOrderRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @GetMapping("/users/{userIdx}/often-products")
+    public BaseResponse<List<GetOrdersOftenRes>> getOrdersOften(@PathVariable int userIdx) {
+        try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+
+            List<GetOrdersOftenRes> getOrdersOftenRes = orderProvider.getOrdersOften(userIdx);
+            return new BaseResponse<>(getOrdersOftenRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }

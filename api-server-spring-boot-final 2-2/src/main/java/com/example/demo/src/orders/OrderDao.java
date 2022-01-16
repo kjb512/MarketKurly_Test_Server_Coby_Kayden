@@ -1,9 +1,6 @@
 package com.example.demo.src.orders;
 
-import com.example.demo.src.orders.model.GetOrderProductRes;
-import com.example.demo.src.orders.model.GetOrderRes;
-import com.example.demo.src.orders.model.GetOrdersRes;
-import com.example.demo.src.orders.model.PostOrderReq;
+import com.example.demo.src.orders.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -39,7 +36,7 @@ public class OrderDao {
                 "inner join CartProduct CP on O.cartIdx = CP.cartIdx " +
                 "inner join Product P on P.productIdx = CP.productIdx " +
                 "inner join Payment P2 on O.paymentType = P2.paymentIdx " +
-                "where O.userIdx = ? and O.status = 'ACTIVE' " +
+                "where O.userIdx = ? " +
                 "group by O.orderIdx";
         int getOrdersByUserParams = userIdx;
         return this.jdbcTemplate.query(getOrdersByUserQuery,
@@ -72,6 +69,24 @@ public class OrderDao {
                         rs.getInt("count"),
                         rs.getString("packagingType")),
                 getOrderProductParams);
+    }
+
+    public List<GetOrdersOftenRes> getOrdersOften(int userIdx) {
+        String getOrdersOftenQuery = "select P.productIdx,P.title, P.price, count(P.productIdx) as count from `Order` O " +
+                "inner join Cart C on O.cartIdx = C.cartIdx " +
+                "inner join CartProduct CP on C.cartIdx = CP.cartIdx " +
+                "inner join Product P on CP.productIdx = P.productIdx  " +
+                "where O.userIdx = ? and O.status = 'ACTIVE'" +
+                " group by P.productIdx " +
+                "order by count DESC";
+        int getOrdersOftenParams = userIdx;
+        return this.jdbcTemplate.query(getOrdersOftenQuery,
+                (rs, rowNum) -> new GetOrdersOftenRes(
+                        rs.getInt("productIdx"),
+                        rs.getString("title"),
+                        rs.getInt("price"),
+                        rs.getInt("count")),
+                getOrdersOftenParams);
     }
 
     public int getUserIdx(int orderIdx) {
@@ -116,10 +131,11 @@ public class OrderDao {
     }
 
     public int cancelOrder(int orderIdx) {
-        String cancelOrderQuery = "update `Order` set status = 'DELETED' where orderIdx = ? ";
+        String cancelOrderQuery = "update `Order` set status = 'CANCELED', deliveryStatus='CANCELED' where orderIdx = ? ";
         int cancelOrderParams = orderIdx;
 
         return this.jdbcTemplate.update(cancelOrderQuery,cancelOrderParams);
     }
+
 
 }

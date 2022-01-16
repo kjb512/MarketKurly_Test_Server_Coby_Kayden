@@ -112,6 +112,4 @@ public class DeliveryInfoDao {
 
         return this.jdbcTemplate.update(deleteDeliveryInfoQuery,deleteDeliveryInfoParams);
     }
-
-
 }
