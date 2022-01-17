@@ -3,16 +3,14 @@ package com.example.demo.src.likes;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.config.Constant;
-import com.example.demo.src.orders.model.PostOrderReq;
-import com.example.demo.src.orders.model.PostOrderRes;
+import com.example.demo.src.likes.model.*;
 import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.example.demo.config.BaseResponseStatus.INVALID_USER_JWT;
 
@@ -49,4 +47,73 @@ public class LikeController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    @GetMapping("/users/{userIdx}")
+    public BaseResponse<List<GetLikeRes>> getLike(@PathVariable int userIdx) {
+        try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+
+            List<GetLikeRes> getLikeRes = likeProvider.getLike(userIdx);
+            return new BaseResponse<>(getLikeRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @GetMapping("/users/{userIdx}/counts")
+    public BaseResponse<GetLikeCountRes> getLikeCount(@PathVariable int userIdx) {
+        try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+
+            GetLikeCountRes getLikeCountRes = likeProvider.getLikeCount(userIdx);
+            return new BaseResponse<>(getLikeCountRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @GetMapping("/users/{userIdx}/{productIdx}")
+    public BaseResponse<GetLikeProductRes> getLikeProduct(@PathVariable int userIdx, @PathVariable int productIdx) {
+        try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+
+            GetLikeProductRes getLikeProductRes = likeProvider.getLikeProduct(userIdx, productIdx);
+            return new BaseResponse<>(getLikeProductRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @DeleteMapping("")
+    public BaseResponse<String> cancelLike(@Validated @RequestBody DelteteLikeReq delteteLikeReq, Errors errors){
+        try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+
+            if(delteteLikeReq.getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+
+            likeService.cancelLike(delteteLikeReq);
+
+            String result = "";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+
 }

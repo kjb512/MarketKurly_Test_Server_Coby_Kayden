@@ -49,6 +49,9 @@ public enum BaseResponseStatus {
     // Order
     PATCH_CANCEL_ORDER_CHECK_STATUS(false, 2040, "배송중에는 취소할 수 없습니다."),
 
+    //Like
+    POST_LIKE_EXISTS(false, 2050, "이미 찜이 되어있습니다."),
+
     /**
      * 3000 : Response 오류
      */
@@ -73,7 +76,9 @@ public enum BaseResponseStatus {
     PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다."),
 
     // Order
-    DELETION_FAIL_ORDER(false, 4020, "주문취소 실패");
+    DELETION_FAIL_ORDER(false, 4020, "주문취소 실패"),
+
+    DELETION_FAIL_Like(false,4030, "찜취소 실패");
 
     // 5000 : 필요시 만들어서 쓰세요
     // 6000 : 필요시 만들어서 쓰세요

@@ -25,20 +25,7 @@ public class EventDao {
         int getEventParams = eventIdx;
         return this.jdbcTemplate.queryForObject(getEventQuery,
                 (rs, rowNum) -> new GetEventRes(
-                        rs.getInt("productPrice"),
-                        rs.getInt("deliveryPrice"),
-                        rs.getInt("discountPrice"),
-                        rs.getInt("couponDiscount"),
-                        rs.getInt("rewardDiscount"),
-                        rs.getInt("amountOfPayment"),
-                        rs.getInt("orderIdx"),
-                        rs.getString("userName"),
-                        rs.getString("paymentDate"),
-                        rs.getString("receiver"),
-                        rs.getString("receiverPhone"),
-                        rs.getString("deliveryType"),
-                        rs.getString("address"),
-                        rs.getString("afterMessageDeliveryTime")),
+                        rs.getString("eventProfileImg")),
                 getEventParams);
     }
 }
