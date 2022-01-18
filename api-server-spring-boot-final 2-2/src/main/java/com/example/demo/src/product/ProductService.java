@@ -23,8 +23,8 @@ public class ProductService {
 
 
     @Autowired
-    public ProductService(ProductDao userDao, ProductProvider productProvider, JwtService jwtService) {
-        this.productDao = userDao;
+    public ProductService(ProductDao productDao, ProductProvider productProvider, JwtService jwtService) {
+        this.productDao = productDao;
         this.productProvider = productProvider;
         this.jwtService = jwtService;
 

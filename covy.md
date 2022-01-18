@@ -164,4 +164,27 @@
   - group by를 통한 카운트 -> cartProduct 중복 개수를 count 컬럼을 통한 카운트
 - cart 로직 수정으로 인한 query 수정
 
-# 
+
+
+01/16일 개발일지
+
+- cart api 개발 및 명세 완료
+- review api, question api 개발시작
+  - 사진 업로드
+    - S3에 저장
+    - https://devlog-wjdrbs96.tistory.com/323
+
+
+
+01/17일 개발일지
+
+- reivew api, question api 개발 60%
+- product 더미데이터 제작 (대략 70개)
+- 프론트와 더미데이터 관련 회의
+  - 광고 부분은 프론트 측에서
+  - 각 카테고리/섹션 별로 5~6개씩 데이터 제작
+
+
+
+
+
