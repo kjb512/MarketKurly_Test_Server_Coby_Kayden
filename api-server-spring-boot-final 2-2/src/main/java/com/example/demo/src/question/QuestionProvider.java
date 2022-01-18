@@ -38,7 +38,7 @@ public class QuestionProvider {
             List<QuestionRes> questionResList = questionDao.getQuestionsWithAnswer(productidx);
             for(int i=0;i<questionResList.size();i++){
                 cal.setTime(questionResList.get(i).getCreateAt());
-                questionResList.get(i).setCreatDate(String.valueOf(cal.get(Calendar.YEAR))+"."+String.valueOf(cal.get(Calendar.MONTH+1))+"."+String.valueOf(cal.get(Calendar.DATE)));
+                questionResList.get(i).setCreatDate(String.valueOf(cal.get(Calendar.YEAR))+"."+String.valueOf(cal.get(Calendar.MONTH)+1)+"."+String.valueOf(cal.get(Calendar.DATE)));
             }
 
             return questionResList;
