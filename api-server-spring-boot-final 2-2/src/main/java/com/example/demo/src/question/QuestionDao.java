@@ -27,7 +27,7 @@ public class QuestionDao {
 
     public List<QuestionRes> getQuestionsWithAnswer(int productIdx){
         String query = "select *\n" +
-                "from Question left join Answer A on Question.questionIdx = A.questionIdx and A.status='ACTIVE'\n" +
+                "from (Question left join User on User.userIdx=Question.userIdx) left join Answer A on Question.questionIdx = A.questionIdx and A.status='ACTIVE'\n" +
                 "where productIdx=? and Question.status='ACTIVE'\n" +
                 "order by Question.createAt DESC ;";
 
@@ -40,7 +40,8 @@ public class QuestionDao {
                 rs.getTimestamp("Question.createAt"),
                 "",
                 new AnswerRes(rs.getInt("answerIdx"),
-                        rs.getString("answer"))),productIdx);
+                        rs.getString("answer")),
+                rs.getString("name")),productIdx);
     }
 
     public void updateQuestion(int questionIdx, String title, String question, String isLock){

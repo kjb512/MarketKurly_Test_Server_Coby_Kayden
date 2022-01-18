@@ -24,6 +24,11 @@ public class CartDao {
         this.jdbcTemplate.update(query, userIdx);
     }
 
+    public void deleteCart(int cartidx){
+        String query = "update Cart set status='INACTIVE' where cartIdx=?;";
+        this.jdbcTemplate.update(query,cartidx);
+    }
+
     // cart query 모듈화
 
     // get product
