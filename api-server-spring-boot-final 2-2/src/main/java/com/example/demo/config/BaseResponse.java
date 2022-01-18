@@ -33,7 +33,7 @@ public class BaseResponse<T> {
     // validation 실패
     public BaseResponse(LinkedList errorList){
         this.isSuccess = false;
-        this.code = 2000;
+        this.code = 2090;
         this.message = (T) errorList;
     }
 

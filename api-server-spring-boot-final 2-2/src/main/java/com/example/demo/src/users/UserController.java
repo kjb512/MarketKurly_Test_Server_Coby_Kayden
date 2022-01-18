@@ -3,6 +3,7 @@ package com.example.demo.src.users;
 import com.example.demo.config.Constant;
 import com.example.demo.src.auth.model.GetIdReq;
 import com.example.demo.src.auth.model.GetIdRes;
+import com.example.demo.utils.ValidationRegex;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -157,7 +158,9 @@ public class UserController {
     @GetMapping("/check/id")
     public BaseResponse<GetIdRes> authId(@RequestParam String id)  {
         //Validation
-
+        if(!ValidationRegex.isRegexId(id)){
+            return new BaseResponse<>(USERS_EMPTY_USER_ID);
+        }
         try {
             GetIdRes getAuthRes = userService.doubleCheckId(id);
             return new BaseResponse<>(getAuthRes);
