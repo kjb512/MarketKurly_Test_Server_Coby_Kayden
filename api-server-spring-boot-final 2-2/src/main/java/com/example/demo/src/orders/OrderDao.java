@@ -22,8 +22,9 @@ public class OrderDao {
 
 
     public int createOrder(PostOrderReq postOrderReq) {
-        String createOrderQuery = "insert into `Order`(userIdx, cartIdx, paymentType, productPrice, amountOfPayment, discountPrice, deliveryPrice, couponDiscount, rewardDiscount, deliveryInfoIdx) values(?,?,?,?,?,?,?,?,?,?)";
-        Object[] createOrderParams = new Object[]{postOrderReq.getUserIdx(), postOrderReq.getCartIdx(), postOrderReq.getPaymentType(), postOrderReq.getProductPrice(), postOrderReq.getAmountOfPayment(), postOrderReq.getDiscountPrice(), postOrderReq.getDeliveryPrice(),postOrderReq.getCouponDiscount(),postOrderReq.getRewardDiscount(), postOrderReq.getDeliveryInfoIdx()};
+        String createOrderQuery = "insert into `Order`(userIdx, cartIdx, couponUserIdx, paymentType, productPrice, amountOfPayment, discountPrice, deliveryPrice, couponDiscount, rewardDiscount) values (?,?,?,?,?,?,?,?,?,?)";
+        Object[] createOrderParams = new Object[]{postOrderReq.getUserIdx(), postOrderReq.getCartIdx(), postOrderReq.getCouponUserIdx(), postOrderReq.getPaymentType(), postOrderReq.getProductPrice(),
+                postOrderReq.getAmountOfPayment(), postOrderReq.getDiscountPrice(), postOrderReq.getDeliveryPrice(),postOrderReq.getCouponDiscount(),postOrderReq.getRewardDiscount()};
         this.jdbcTemplate.update(createOrderQuery, createOrderParams);
 
         String lastInserIdQuery = "select last_insert_id()";

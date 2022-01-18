@@ -49,6 +49,12 @@ public enum BaseResponseStatus {
     // Order
     PATCH_CANCEL_ORDER_CHECK_STATUS(false, 2040, "배송중에는 취소할 수 없습니다."),
 
+    //Like
+    POST_LIKE_EXISTS(false, 2050, "이미 찜이 되어있습니다."),
+
+    //auth
+    CHECK_INVALID_PHONE(false, 2060, "휴대폰 형식을 확인해주세요."),
+
     /**
      * 3000 : Response 오류
      */
@@ -59,6 +65,9 @@ public enum BaseResponseStatus {
     DUPLICATED_EMAIL(false, 3013, "중복된 이메일입니다."),
     FAILED_TO_LOGIN(false, 3014, "없는 아이디거나 비밀번호가 틀렸습니다."),
 
+    //[POST] / coupons
+    DUPLICATED_COUPON(false, 3020, "이미 발급된 쿠폰입니다."),
+
     /**
      * 4000 : Database, Server 오류
      */
@@ -66,14 +75,16 @@ public enum BaseResponseStatus {
     SERVER_ERROR(false, 4001, "서버와의 연결에 실패하였습니다."),
 
     // [PATCH] /users/{userIdx}
-    MODIFY_FAIL_USERNAME(false, 4014, "유저네임 수정 실패"),
+    MODIFY_FAIL_USERNAME(false, 4014, "유저정보 수정 실패"),
     MODIFY_FAIL_DELIVERYINFO(false, 4015, "배송지 수정 실패"),
 
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
     PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다."),
 
     // Order
-    DELETION_FAIL_ORDER(false, 4020, "주문취소 실패");
+    DELETION_FAIL_ORDER(false, 4020, "주문취소 실패"),
+
+    DELETION_FAIL_Like(false,4030, "찜취소 실패");
 
     // 5000 : 필요시 만들어서 쓰세요
     // 6000 : 필요시 만들어서 쓰세요

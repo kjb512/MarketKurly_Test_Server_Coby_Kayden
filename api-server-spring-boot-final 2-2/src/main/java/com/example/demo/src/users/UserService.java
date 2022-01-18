@@ -8,6 +8,8 @@ import com.example.demo.src.auth.model.GetAuthReq;
 import com.example.demo.src.auth.model.GetAuthRes;
 import com.example.demo.src.auth.model.GetIdReq;
 import com.example.demo.src.auth.model.GetIdRes;
+import com.example.demo.src.deliveryInfo.DeliveryInfoService;
+import com.example.demo.src.deliveryInfo.model.PostDeliveyInfoReq;
 import com.example.demo.src.users.model.*;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
@@ -16,6 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 import static com.example.demo.config.BaseResponseStatus.*;
 
@@ -28,9 +32,10 @@ public class UserService {
     private final UserDao userDao;
     private final UserProvider userProvider;
     private final JwtService jwtService;
+    private final DeliveryInfoService deliveryInfoService;
 
 
-    //POST
+    @Transactional(rollbackOn = BaseException.class)
     public PostUserRes createUser(PostUserReq postUserReq) throws BaseException {
         //중복
         if(userProvider.checkEmail(postUserReq.getEmail()) ==1){
@@ -50,8 +55,12 @@ public class UserService {
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
         }
+
+
         try{
             int userIdx = userDao.createUser(postUserReq);
+            // Address 기본 배송지로 생성
+            deliveryInfoService.createDeliveryInfo(new PostDeliveyInfoReq(userIdx,postUserReq.getAdress(),postUserReq.getExtraAdress()),"T");
             //jwt 발급.
             String jwt = jwtService.createJwt(userIdx);
             return new PostUserRes(jwt,userIdx);

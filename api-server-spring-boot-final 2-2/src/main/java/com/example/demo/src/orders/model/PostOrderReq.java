@@ -6,29 +6,30 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class PostOrderReq {
-    @NotEmpty
+    @NotNull
     private int userIdx;
-    @NotEmpty
+    @NotNull
     private int cartIdx;
-    @NotEmpty
+    private int couponUserIdx;
+    @NotNull
     private int paymentType;
-    @NotEmpty
-    private int deliveryInfoIdx;
-    @NotEmpty
+    @NotNull
     private int productPrice;
-    @NotEmpty
+    @NotNull
     private int discountPrice;
-    @NotEmpty
+    @NotNull
     private int deliveryPrice;
-    @NotEmpty
+    @NotNull
     private int couponDiscount;
-    @NotEmpty
+    @NotNull
     private int rewardDiscount;
-    @NotEmpty
+    @NotNull
     private int amountOfPayment;
 }
