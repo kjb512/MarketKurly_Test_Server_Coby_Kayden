@@ -73,4 +73,12 @@ public class CouponDao {
 
         return this.jdbcTemplate.update(cancelLikeQuery,cancelLikeParams);
     }
+
+    public int doubleCheckCoupon(int userIdx, int couponIdx) {
+        String doubleCheckCouponQuery = "select exists(select couponUserIdx from CouponUser where userIdx = ? and couponIdx = ?)";
+        Object[] doubleCheckCouponParams = new Object[]{userIdx, couponIdx};
+        return this.jdbcTemplate.queryForObject(doubleCheckCouponQuery,
+                int.class,
+                doubleCheckCouponParams);
+    }
 }

@@ -37,4 +37,13 @@ public class CouponProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public int doubleCheckCoupon(int userIdx, int couponIdx) throws BaseException{
+        try{
+            return couponDao.doubleCheckCoupon(userIdx, couponIdx);
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

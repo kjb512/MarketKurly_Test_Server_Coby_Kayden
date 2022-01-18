@@ -8,8 +8,7 @@ import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.example.demo.config.BaseResponseStatus.DATABASE_ERROR;
-import static com.example.demo.config.BaseResponseStatus.DELETION_FAIL_Like;
+import static com.example.demo.config.BaseResponseStatus.*;
 
 @RequiredArgsConstructor
 @Service
@@ -20,6 +19,10 @@ public class CouponService {
     private final JwtService jwtService;
 
     public PostCouponRes createCouponUser(PostCouponReq postCouponReq) throws BaseException {
+        int result = couponProvider.doubleCheckCoupon(postCouponReq.getUserIdx(), postCouponReq.getCouponIdx());
+        if(result != 0){
+            throw new BaseException(DUPLICATED_COUPON);
+        }
         try{
             int couponUserIdx = couponDao.createCouponUser(postCouponReq);
             return new PostCouponRes(couponUserIdx);
