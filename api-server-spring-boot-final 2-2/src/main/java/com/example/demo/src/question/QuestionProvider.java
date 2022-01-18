@@ -36,7 +36,7 @@ public class QuestionProvider {
     public List<QuestionRes> getQuestionsWithAnswer(int productidx) throws BaseException {
         try{
             List<QuestionRes> questionResList = questionDao.getQuestionsWithAnswer(productidx);
-            for(int i=0;i<questionResList.size();i++){
+            for(int i=0;i<questionResList.size();i++){;
                 cal.setTime(questionResList.get(i).getCreateAt());
                 questionResList.get(i).setCreatDate(String.valueOf(cal.get(Calendar.YEAR))+"."+String.valueOf(cal.get(Calendar.MONTH)+1)+"."+String.valueOf(cal.get(Calendar.DATE)));
             }

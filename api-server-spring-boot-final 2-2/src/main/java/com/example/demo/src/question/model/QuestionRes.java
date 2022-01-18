@@ -21,4 +21,5 @@ public class QuestionRes {
     private Timestamp createAt;
     private String creatDate;
     private AnswerRes answerRes;
+    private String userName;
 }
