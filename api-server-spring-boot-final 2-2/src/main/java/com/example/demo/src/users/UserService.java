@@ -8,8 +8,10 @@ import com.example.demo.src.auth.model.GetAuthReq;
 import com.example.demo.src.auth.model.GetAuthRes;
 import com.example.demo.src.auth.model.GetIdReq;
 import com.example.demo.src.auth.model.GetIdRes;
+import com.example.demo.src.cart.CartService;
 import com.example.demo.src.deliveryInfo.DeliveryInfoService;
 import com.example.demo.src.deliveryInfo.model.PostDeliveyInfoReq;
+import com.example.demo.src.deliveryInfo.model.PostDeliveyInfoRes;
 import com.example.demo.src.users.model.*;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
@@ -29,6 +31,7 @@ import static com.example.demo.config.BaseResponseStatus.*;
 public class UserService {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    private final CartService cartService;
     private final UserDao userDao;
     private final UserProvider userProvider;
     private final JwtService jwtService;
@@ -60,7 +63,8 @@ public class UserService {
         try{
             int userIdx = userDao.createUser(postUserReq);
             // Address 기본 배송지로 생성
-            deliveryInfoService.createDeliveryInfo(new PostDeliveyInfoReq(userIdx,postUserReq.getAdress(),postUserReq.getExtraAdress()),"T");
+            PostDeliveyInfoRes idx =  deliveryInfoService.createDeliveryInfo(new PostDeliveyInfoReq(userIdx,postUserReq.getAdress(),postUserReq.getExtraAdress()),"T");
+            cartService.createUserCart(userIdx, idx.getDeliveryInfoIdx());
             //jwt 발급.
             String jwt = jwtService.createJwt(userIdx);
             return new PostUserRes(jwt,userIdx);

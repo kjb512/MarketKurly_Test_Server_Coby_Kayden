@@ -57,6 +57,14 @@ public class UserProvider {
         }
     }
 
+    public int getDeliveryInfoByUser(int userIdx) throws BaseException{
+        try {
+            return userDao.getDeliveryInfoByUser(userIdx);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public int checkEmail(String email) throws BaseException{
         try{
             return userDao.checkEmail(email);

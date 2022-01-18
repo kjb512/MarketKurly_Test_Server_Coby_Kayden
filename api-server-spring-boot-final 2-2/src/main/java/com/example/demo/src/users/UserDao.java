@@ -110,4 +110,14 @@ public class UserDao {
                 );
 
     }
+
+    public int getDeliveryInfoByUser(int userIdx) {
+        String getDeliveryIndoByUserQuery = "select DI.deliveryInfoIdx from User " +
+                "inner join DeliveryInfo DI on User.userIdx = DI.userIdx " +
+                "where DI.userIdx = ? and DI.isDefaultAddress = 'T'";
+        int getDeliveryIndoByUserParams = userIdx;
+        return this.jdbcTemplate.queryForObject(getDeliveryIndoByUserQuery,
+                int.class,
+                getDeliveryIndoByUserParams);
+    }
 }
