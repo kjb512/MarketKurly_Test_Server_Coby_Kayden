@@ -61,9 +61,9 @@ public class UserDao {
     
 
     public int createUser(PostUserReq postUserReq){
-        String createUserQuery = "insert into User(id, pwd, name, email, phone, address, birthDate, gender, isSmsReceiveAgree, isEmailReceiveAgree, isTermsOfUseAgree, isPersonalInfoCollectAgree, isPersonalInfoUsageAgree, isAgeAboveForteen, recommender, eventName, extraAdress) " +
-                "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        Object[] createUserParams = new Object[]{postUserReq.getId(),postUserReq.getPwd(),postUserReq.getName(),postUserReq.getEmail(),postUserReq.getPhone(),postUserReq.getAdress(), postUserReq.getBirthDate(), postUserReq.getGender(), postUserReq.getIsSmsReceiveAgree(),postUserReq.getIsEmailReceiveAgree(), postUserReq.getIsTermsOfUseAgree(), postUserReq.getIsPersonalInfoCollectAgree(), postUserReq.getIsPersonalInfoUsageAgree(), postUserReq.getIsAgeAboveForteen(), postUserReq.getRecommender(), postUserReq.getEventName(), postUserReq.getExtraAdress()};
+        String createUserQuery = "insert into User(id, pwd, name, email, phone, birthDate, gender, isSmsReceiveAgree, isEmailReceiveAgree, isTermsOfUseAgree, isPersonalInfoCollectAgree, isPersonalInfoUsageAgree, isAgeAboveForteen, recommender, eventName) " +
+                "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        Object[] createUserParams = new Object[]{postUserReq.getId(),postUserReq.getPwd(),postUserReq.getName(),postUserReq.getEmail(),postUserReq.getPhone(), postUserReq.getBirthDate(), postUserReq.getGender(), postUserReq.getIsSmsReceiveAgree(),postUserReq.getIsEmailReceiveAgree(), postUserReq.getIsTermsOfUseAgree(), postUserReq.getIsPersonalInfoCollectAgree(), postUserReq.getIsPersonalInfoUsageAgree(), postUserReq.getIsAgeAboveForteen(), postUserReq.getRecommender(), postUserReq.getEventName()};
         this.jdbcTemplate.update(createUserQuery, createUserParams);
 
         String lastInserIdQuery = "select last_insert_id()";
@@ -109,5 +109,15 @@ public class UserDao {
                 getPwdParams
                 );
 
+    }
+
+    public int getDeliveryInfoByUser(int userIdx) {
+        String getDeliveryIndoByUserQuery = "select DI.deliveryInfoIdx from User " +
+                "inner join DeliveryInfo DI on User.userIdx = DI.userIdx " +
+                "where DI.userIdx = ? and DI.isDefaultAddress = 'T'";
+        int getDeliveryIndoByUserParams = userIdx;
+        return this.jdbcTemplate.queryForObject(getDeliveryIndoByUserQuery,
+                int.class,
+                getDeliveryIndoByUserParams);
     }
 }

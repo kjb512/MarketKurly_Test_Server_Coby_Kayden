@@ -1,8 +1,12 @@
 package com.example.demo.src.orders;
 
 import com.example.demo.config.BaseException;
+import com.example.demo.src.cart.CartDao;
+import com.example.demo.src.cart.CartProvider;
+import com.example.demo.src.cart.CartService;
 import com.example.demo.src.orders.model.PostOrderReq;
 import com.example.demo.src.orders.model.PostOrderRes;
+import com.example.demo.src.users.UserProvider;
 import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,13 +19,20 @@ import static com.example.demo.config.BaseResponseStatus.*;
 @Service
 public class OrderService {
 
+    private final CartService cartService;
+    private final CartDao cartDao;
     private final OrderDao orderDao;
+    private final UserProvider userProvider;
     private final OrderProvider orderProvider;
     private final JwtService jwtService;
 
+    @Transactional(rollbackOn = BaseException.class)
     public PostOrderRes createOrder(PostOrderReq postOrderReq) throws BaseException {
         try{
             int orderIdx = orderDao.createOrder(postOrderReq);
+            cartDao.deleteCart(postOrderReq.getCartIdx());
+            int deliveryInfoIdx = userProvider.getDeliveryInfoByUser(postOrderReq.getUserIdx());
+            cartService.createUserCart(postOrderReq.getUserIdx(), deliveryInfoIdx);
             return new PostOrderRes(orderIdx);
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
