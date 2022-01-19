@@ -45,9 +45,6 @@ public class CartService {
     //TODO void -> cartRes 변경
     public CartFromUserRes addProductInCart(int productIdx, int userIdx) throws BaseException{
         try{
-            if(cartDao.checkCartFromUser(userIdx)==0){
-                throw new BaseException(USER_CART_NOT_EXIST);
-            }
 
             if(productDao.checkProductIdx(productIdx)==0){
                 throw new BaseException(GET_PRODUCT_IDX_NOT_EXIST);
@@ -69,9 +66,6 @@ public class CartService {
     public CartFromUserRes deleteProductInCartOne(int productIdx, int userIdx) throws BaseException{
 
         try{
-            if(cartDao.checkCartFromUser(userIdx)==0){
-                throw new BaseException(USER_CART_NOT_EXIST);
-            }
 
             if(productDao.checkProductIdx(productIdx)==0){
                 throw new BaseException(GET_PRODUCT_IDX_NOT_EXIST);
@@ -87,9 +81,6 @@ public class CartService {
 
     public CartFromUserRes deleteProductInCartAll(int productIdx, int userIdx) throws BaseException{
         try{
-            if(cartDao.checkCartFromUser(userIdx)==0){
-                throw new BaseException(USER_CART_NOT_EXIST);
-            }
 
             if(productDao.checkProductIdx(productIdx)==0){
                 throw new BaseException(GET_PRODUCT_IDX_NOT_EXIST);
