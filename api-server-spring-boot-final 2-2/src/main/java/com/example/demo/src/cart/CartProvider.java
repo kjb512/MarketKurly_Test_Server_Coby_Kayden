@@ -35,9 +35,6 @@ public class CartProvider {
 
     public CartFromUserRes getCartFromUser(int userIdx) throws BaseException{
         try{
-            if(cartDao.checkCartFromUser(userIdx)==0){
-                throw new BaseException(USER_CART_NOT_EXIST);
-            }
 
             CartUserInfo cartUserInfo;
             cartUserInfo = cartDao.getCartUserInfo(userIdx);

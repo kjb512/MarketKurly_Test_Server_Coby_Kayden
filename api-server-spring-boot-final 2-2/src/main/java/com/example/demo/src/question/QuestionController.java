@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.example.demo.config.BaseResponseStatus.INVALID_USER_JWT;
+
 @RestController
 @RequestMapping("/api/questions")
 public class QuestionController {
@@ -51,6 +53,12 @@ public class QuestionController {
     public BaseResponse<List<QuestionRes>> createQuestion(@RequestBody QuestionReq questionReq) {
         // Get Users
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(questionReq.getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+
             List<QuestionRes> getQuestionRes = questionService.createQuestion(questionReq.getProductIdx(),questionReq.getUserIdx(),
                     questionReq.getTitle(),questionReq.getQuestion(),questionReq.getIsLock());
             return new BaseResponse<>(getQuestionRes);

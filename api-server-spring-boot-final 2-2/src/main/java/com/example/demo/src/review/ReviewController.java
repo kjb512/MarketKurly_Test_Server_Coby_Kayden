@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+import static com.example.demo.config.BaseResponseStatus.INVALID_USER_JWT;
+
 @RestController
 @RequestMapping("/api/reviews")
 public class ReviewController {
@@ -48,6 +50,11 @@ public class ReviewController {
     @PostMapping("")
     public BaseResponse<ReviewInfoRes> creatReview(@ModelAttribute ReviewReq reviewReq) throws IOException {
         try {
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(reviewReq.getReviewDto().getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
             ReviewInfoRes reviewInfoRes = reviewService.creatReview(reviewReq);
             return new BaseResponse<>(reviewInfoRes);
         } catch (BaseException exception) {
