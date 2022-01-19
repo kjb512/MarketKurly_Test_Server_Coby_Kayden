@@ -36,10 +36,10 @@ public class CartController {
     // 조회
     @ResponseBody
     @GetMapping("")
-    public BaseResponse<CartFromUserRes> getCartByUserIdx(@RequestParam(required = false) int userIdx ) {
+    public BaseResponse<CartFromUserRes> getCartByUserIdx(@RequestParam(required = false) int cartIdx ) {
         // Get Users
         try{
-            CartFromUserRes cartFromUserRes = cartProvider.getCartFromUser(userIdx);
+            CartFromUserRes cartFromUserRes = cartProvider.getCartFromUser(cartIdx);
             return new BaseResponse<>(cartFromUserRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -49,9 +49,9 @@ public class CartController {
     // 생성
     @ResponseBody
     @PostMapping("")
-    public BaseResponse<CartFromUserRes> addProductInCart(@RequestParam(required = false) int userIdx, @RequestParam(required = false) int productIdx ) {
+    public BaseResponse<CartFromUserRes> addProductInCart(@RequestParam(required = false) int cartIdx, @RequestParam(required = false) int productIdx ) {
         try{
-            CartFromUserRes cartFromUserRes = cartService.addProductInCart(productIdx,userIdx);
+            CartFromUserRes cartFromUserRes = cartService.addProductInCart(productIdx,cartIdx);
             return new BaseResponse<>(cartFromUserRes);
 
         } catch(BaseException exception){
@@ -62,9 +62,9 @@ public class CartController {
     // 삭제
     @ResponseBody
     @PatchMapping("")
-    public BaseResponse<CartFromUserRes> deleteProductOneInCart(@RequestParam(required = false) int userIdx, @RequestParam(required = false) int productIdx ) {
+    public BaseResponse<CartFromUserRes> deleteProductOneInCart(@RequestParam(required = false) int cartIdx, @RequestParam(required = false) int productIdx ) {
         try{
-            CartFromUserRes cartFromUserRes = cartService.deleteProductInCartOne(productIdx,userIdx);
+            CartFromUserRes cartFromUserRes = cartService.deleteProductInCartOne(productIdx,cartIdx);
             return new BaseResponse<>(cartFromUserRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -73,10 +73,10 @@ public class CartController {
 
     @ResponseBody
     @PatchMapping("/all")
-    public BaseResponse<CartFromUserRes> deleteProductAllInCart(@RequestParam(required = false) int userIdx, @RequestParam(required = false) int productIdx ) {
+    public BaseResponse<CartFromUserRes> deleteProductAllInCart(@RequestParam(required = false) int cartIdx, @RequestParam(required = false) int productIdx ) {
         // Get Users
         try{
-            CartFromUserRes cartFromUserRes = cartService.deleteProductInCartAll(productIdx,userIdx);
+            CartFromUserRes cartFromUserRes = cartService.deleteProductInCartAll(productIdx,cartIdx);
             return new BaseResponse<>(cartFromUserRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));

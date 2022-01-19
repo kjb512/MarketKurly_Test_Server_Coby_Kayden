@@ -10,7 +10,6 @@ import javax.mail.Multipart;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class ReviewReq {
     private MultipartFile multipart;
     private ReviewDto reviewDto;
