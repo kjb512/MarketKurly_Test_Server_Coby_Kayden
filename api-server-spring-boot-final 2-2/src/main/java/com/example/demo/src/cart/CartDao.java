@@ -19,9 +19,12 @@ public class CartDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void createUserCart(int userIdx, int deliveryInfoIdx) {
+    public int createUserCart(int userIdx, int deliveryInfoIdx) {
         String query = "insert into Cart( userIdx, deliveryInfoIdx) values (?,?);";
         this.jdbcTemplate.update(query, userIdx, deliveryInfoIdx);
+
+        String lastInserIdQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
     }
 
     public void deleteCart(int cartidx){

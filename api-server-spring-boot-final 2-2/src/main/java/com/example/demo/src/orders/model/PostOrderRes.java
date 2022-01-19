@@ -9,4 +9,5 @@ import lombok.Setter;
 @Setter
 public class PostOrderRes {
     private int orderIdx;
+    private int cartIdx;
 }

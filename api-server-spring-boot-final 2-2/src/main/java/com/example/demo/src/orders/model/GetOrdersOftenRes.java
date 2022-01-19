@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetOrdersOftenRes {
+    private String profileImageUrl;
     private int productIdx;
     private String title;
     private int price;
