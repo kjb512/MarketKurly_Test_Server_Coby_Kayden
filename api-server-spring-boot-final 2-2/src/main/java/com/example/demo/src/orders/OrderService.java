@@ -32,8 +32,8 @@ public class OrderService {
             int orderIdx = orderDao.createOrder(postOrderReq);
             cartDao.deleteCart(postOrderReq.getCartIdx());
             int deliveryInfoIdx = userProvider.getDeliveryInfoByUser(postOrderReq.getUserIdx());
-            cartService.createUserCart(postOrderReq.getUserIdx(), deliveryInfoIdx);
-            return new PostOrderRes(orderIdx);
+            int cartIdx = cartService.createUserCart(postOrderReq.getUserIdx(), deliveryInfoIdx);
+            return new PostOrderRes(orderIdx,cartIdx);
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }

@@ -120,4 +120,12 @@ public class UserDao {
                 int.class,
                 getDeliveryIndoByUserParams);
     }
+
+    public int getCartIdx(int userIdx) {
+        String getCartIdxQuery = "select cartIdx from Cart where userIdx = ? and status='ACTIVE'";
+        int getCartIdxParams = userIdx;
+        return this.jdbcTemplate.queryForObject(getCartIdxQuery,
+                int.class,
+                getCartIdxParams);
+    }
 }

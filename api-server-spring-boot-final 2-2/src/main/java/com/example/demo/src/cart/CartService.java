@@ -33,9 +33,9 @@ public class CartService {
     }
 
     // Create userCart
-    public void createUserCart(int userIdx, int deliveryInfoIdx) throws BaseException {
+    public int createUserCart(int userIdx, int deliveryInfoIdx) throws BaseException {
         try{
-            cartDao.createUserCart(userIdx, deliveryInfoIdx);
+            return cartDao.createUserCart(userIdx, deliveryInfoIdx);
         }
         catch(Exception exception){
             throw new BaseException(DATABASE_ERROR);
