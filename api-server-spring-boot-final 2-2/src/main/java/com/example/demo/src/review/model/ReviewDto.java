@@ -9,7 +9,6 @@ import javax.mail.Multipart;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class ReviewDto {
     private int productIdx;
     private int userIdx;

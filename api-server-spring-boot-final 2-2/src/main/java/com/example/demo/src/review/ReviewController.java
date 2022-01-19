@@ -6,7 +6,9 @@ import com.example.demo.src.product.ProductProvider;
 import com.example.demo.src.product.ProductService;
 import com.example.demo.src.product.model.ProductInfoRes;
 import com.example.demo.src.product.model.ProductMiniInfoRes;
+import com.example.demo.src.question.model.QuestionRes;
 import com.example.demo.src.review.model.ReviewDto;
+import com.example.demo.src.review.model.ReviewInfoRes;
 import com.example.demo.src.review.model.ReviewReq;
 import com.example.demo.src.review.model.ReviewRes;
 import com.example.demo.utils.JwtService;
@@ -44,12 +46,62 @@ public class ReviewController {
 
     // return 값
     @PostMapping("")
-    public BaseResponse<List<ReviewRes>> creatReview(@ModelAttribute ReviewReq reviewReq) throws IOException {
+    public BaseResponse<ReviewInfoRes> creatReview(@ModelAttribute ReviewReq reviewReq) throws IOException {
         try {
-            reviewService.creatReview(reviewReq);
-            return null;
+            ReviewInfoRes reviewInfoRes = reviewService.creatReview(reviewReq);
+            return new BaseResponse<>(reviewInfoRes);
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+    @ResponseBody
+    @GetMapping("/{reviewIdx}")
+    public BaseResponse<ReviewInfoRes> getReviewInfo(@PathVariable("reviewIdx") int reviewIdx) {
+        // Get Users
+        try{
+            ReviewInfoRes getReviewInfoRes = reviewProvider.getReview(reviewIdx);
+            return new BaseResponse<>(getReviewInfoRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @GetMapping("")
+    public BaseResponse<List<ReviewRes>> getReviewList(@RequestParam(required = false) int productIdx) {
+        // Get Users
+        try{
+            List<ReviewRes> getReviewRes = reviewProvider.getReviewList(productIdx);
+            return new BaseResponse<>(getReviewRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @PatchMapping("")
+    public BaseResponse<ReviewInfoRes> updateReview(@RequestParam(required = false) int reviewIdx,
+                                                    @RequestParam(required = false) String title,
+                                                    @RequestParam(required = false) String content) {
+        // Get Users
+        try{
+            ReviewInfoRes getReviewInfoRes = reviewService.updateReview(title,content,reviewIdx);
+            return new BaseResponse<>(getReviewInfoRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+    @ResponseBody
+    @PatchMapping("/deletion")
+    public BaseResponse<List<ReviewRes>> deleteReview(@RequestParam(required = false) int reviewIdx,
+                                                    @RequestParam(required = false) int productIdx) {
+        // Get Users
+        try{
+            List<ReviewRes> getReviewInfoRes = reviewService.deleteReview(reviewIdx, productIdx);
+            return new BaseResponse<>(getReviewInfoRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
 }

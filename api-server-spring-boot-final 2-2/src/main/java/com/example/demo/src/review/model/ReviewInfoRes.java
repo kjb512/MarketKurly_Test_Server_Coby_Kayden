@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 public class ReviewInfoRes {
+    private int reviewIdx;
     private int productIdx;
     private int userIdx;
     private String userName;
