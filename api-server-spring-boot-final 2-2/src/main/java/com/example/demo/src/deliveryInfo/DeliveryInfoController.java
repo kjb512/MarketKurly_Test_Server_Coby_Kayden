@@ -112,7 +112,7 @@ public class DeliveryInfoController {
         }
     }
 
-    @PatchMapping("/deletion/{deliveryInfoIdx}")
+    @PatchMapping("/status/{deliveryInfoIdx}")
     public BaseResponse<String> deleteDeliveryInfo(@PathVariable("deliveryInfoIdx") int deliveryInfoIdx){
         try {
             //jwt에서 idx 추출.

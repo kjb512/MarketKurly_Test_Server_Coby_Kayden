@@ -82,6 +82,15 @@ public class UserProvider {
         }
     }
 
+    public int getCartIdx(int userIdx) throws BaseException{
+        try{
+            return userDao.getCartIdx(userIdx);
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public PostLoginRes logIn(PostLoginReq postLoginReq) throws BaseException{
         User user = userDao.getPwd(postLoginReq);
         String encryptPwd;
@@ -94,7 +103,11 @@ public class UserProvider {
         if(user.getPwd().equals(encryptPwd)){
             int userIdx = user.getUserIdx();
             String jwt = jwtService.createJwt(userIdx);
-            return new PostLoginRes(userIdx,jwt);
+            int cartIdx = getCartIdx(userIdx);
+            if(cartIdx == 0){
+                throw new BaseException(FAILED_TO_GET_CART_IDX);
+            }
+            return new PostLoginRes(userIdx,cartIdx,jwt);
         }
         else{
             throw new BaseException(FAILED_TO_LOGIN);

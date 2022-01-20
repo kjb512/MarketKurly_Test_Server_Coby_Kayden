@@ -73,7 +73,7 @@ public class OrderDao {
     }
 
     public List<GetOrdersOftenRes> getOrdersOften(int userIdx) {
-        String getOrdersOftenQuery = "select P.productIdx,P.title, P.price, count(P.productIdx) as count from `Order` O " +
+        String getOrdersOftenQuery = "select P.profileImageUrl,P.productIdx,P.title, P.price, count(P.productIdx) as count from `Order` O " +
                 "inner join Cart C on O.cartIdx = C.cartIdx " +
                 "inner join CartProduct CP on C.cartIdx = CP.cartIdx " +
                 "inner join Product P on CP.productIdx = P.productIdx  " +
@@ -83,6 +83,7 @@ public class OrderDao {
         int getOrdersOftenParams = userIdx;
         return this.jdbcTemplate.query(getOrdersOftenQuery,
                 (rs, rowNum) -> new GetOrdersOftenRes(
+                        rs.getString("profileImageUrl"),
                         rs.getInt("productIdx"),
                         rs.getString("title"),
                         rs.getInt("price"),

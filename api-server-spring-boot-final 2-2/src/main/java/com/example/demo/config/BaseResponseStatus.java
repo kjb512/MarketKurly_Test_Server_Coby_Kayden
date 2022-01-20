@@ -68,6 +68,8 @@ public enum BaseResponseStatus {
     //[POST] / coupons
     DUPLICATED_COUPON(false, 3020, "이미 발급된 쿠폰입니다."),
 
+
+    FAILED_TO_GET_CART_IDX(false, 3030, "cartIdx가 존재하지 않습니다."),
     /**
      * 4000 : Database, Server 오류
      */
