@@ -70,6 +70,13 @@ public class UserDao {
         return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
     }
 
+    public void createUserBySns(PostSnsUserReq postSnsUserReq) {
+        String createUserQuery = "insert into User(type, id, pwd, name, phone,email, isTermsOfUseAgree, isPersonalInfoCollectAgree, isAgeAboveForteen) " +
+                "values(?, ?,?,?,?,?,?,?,?)";
+        Object[] createUserParams = new Object[]{postSnsUserReq.getNameAttributeKey(), postSnsUserReq.getNameAttributeKey(), postSnsUserReq.getNameAttributeKey(), postSnsUserReq.getName(), "01011111111" ,postSnsUserReq.getEmail(), "Y", "Y","Y"};
+        this.jdbcTemplate.update(createUserQuery, createUserParams);
+    }
+
 
     public int checkEmail(String email){
         String checkEmailQuery = "select exists(select email from User where email = ?)";
@@ -80,7 +87,7 @@ public class UserDao {
     }
 
     public int doubleCheckId(String id) {
-        String doubleCheckIdQuery = "select exists(select id from User where id = ?)";
+        String doubleCheckIdQuery = "select exists(select id from User where id = ? and type = 'GENERAL')";
         String doubleCheckIdParams = id;
         return this.jdbcTemplate.queryForObject(doubleCheckIdQuery,
                 int.class,
@@ -128,4 +135,6 @@ public class UserDao {
                 int.class,
                 getCartIdxParams);
     }
+
+
 }

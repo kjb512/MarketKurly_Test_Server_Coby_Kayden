@@ -6,9 +6,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
 public class PostSnsUserReq {
+    private String nameAttributeKey;
     private String name;
     private String email;
-    private String picture;
+
 }
