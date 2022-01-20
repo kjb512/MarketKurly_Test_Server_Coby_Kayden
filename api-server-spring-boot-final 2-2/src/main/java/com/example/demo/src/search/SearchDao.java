@@ -59,6 +59,10 @@ public class SearchDao {
                 rs.getString("keyword"),
                 rs.getString("status")),searchKeywordIdx);
     }
+    public int checkSearchKeyword(int searchIdx){
+        String query = "select exists(select * from SearchKeyword where searchKeywordIdx=?);";
+        return this.jdbcTemplate.queryForObject(query,int.class,searchIdx);
+    }
 
 
 }
