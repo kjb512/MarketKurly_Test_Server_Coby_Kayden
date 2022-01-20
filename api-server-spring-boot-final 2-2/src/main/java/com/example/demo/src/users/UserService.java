@@ -4,9 +4,6 @@ package com.example.demo.src.users;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.auth.model.GetAuthReq;
-import com.example.demo.src.auth.model.GetAuthRes;
-import com.example.demo.src.auth.model.GetIdReq;
 import com.example.demo.src.auth.model.GetIdRes;
 import com.example.demo.src.cart.CartService;
 import com.example.demo.src.deliveryInfo.DeliveryInfoService;
@@ -18,7 +15,6 @@ import com.example.demo.utils.SHA256;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -59,7 +55,6 @@ public class UserService {
             throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
         }
 
-
         try{
             int userIdx = userDao.createUser(postUserReq);
             // Address 기본 배송지로 생성
@@ -71,6 +66,25 @@ public class UserService {
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
+    }
+
+    public BaseResponse<String> createUserBySns(PostSnsUserReq postSnsUserReq) throws BaseException {
+        try {
+            String type;
+            if(userProvider.checkEmail(postSnsUserReq.getEmail()) ==1){
+                return new BaseResponse<>("");
+            }
+            if("id".equals(postSnsUserReq.getNameAttributeKey())){
+                type = "NAVER";
+            }else {
+                type = "GOOGLE";
+            }
+            postSnsUserReq.setNameAttributeKey(type);
+            userDao.createUserBySns(postSnsUserReq);
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
+        }
+        return null;
     }
 
     public void modifyUserName(int userIdx, PatchUserReq patchUserReq) throws BaseException {
@@ -100,5 +114,6 @@ public class UserService {
         }
         return new GetIdRes("아이디 사용가능");
     }
+
 
 }

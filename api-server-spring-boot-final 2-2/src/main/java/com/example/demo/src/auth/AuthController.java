@@ -47,5 +47,10 @@ public class AuthController {
         }
     }
 
+    @GetMapping("")
+    public BaseResponse<String> authPhone () {
+        return new BaseResponse<String>("");
+    }
+
 
 }
