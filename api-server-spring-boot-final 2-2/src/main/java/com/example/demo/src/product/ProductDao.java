@@ -139,5 +139,76 @@ public class ProductDao {
         return this.jdbcTemplate.queryForObject(query,int.class,proudctIdx);
     }
 
-
+    public List<ProductMiniInfoRes> getProductsWithReview(){
+        String query = "select *\n" +
+                "from Product left join Review R on Product.productIdx = R.productIdx\n" +
+                "group by R.productIdx\n" +
+                "having count(reviewIdx)>=1\n" +
+                "limit 5;";
+        return this.jdbcTemplate.query(query,
+                (rs,rowNum) -> new ProductMiniInfoRes(rs.getInt("productIdx"),
+                        rs.getString("title"),
+                        rs.getString("profileImageUrl"),
+                        rs.getString("isKurlyOnly"),
+                        rs.getString("isLimitQuantity"),
+                        rs.getInt("price"),
+                        rs.getInt("discount"),
+                        0
+                )
+        );
+    }
+    public List<ProductMiniInfoRes> getProductsWithDeadSale(){
+        String query = "select *\n" +
+                "from Product\n" +
+                "where saleDeadLine is not null\n" +
+                "order by TIMESTAMPDIFF(DAY ,saleDeadLine,CURDATE()) desc\n" +
+                "limit 5;";
+        return this.jdbcTemplate.query(query,
+                (rs,rowNum) -> new ProductMiniInfoRes(rs.getInt("productIdx"),
+                        rs.getString("title"),
+                        rs.getString("profileImageUrl"),
+                        rs.getString("isKurlyOnly"),
+                        rs.getString("isLimitQuantity"),
+                        rs.getInt("price"),
+                        rs.getInt("discount"),
+                        0
+                )
+        );
+    }
+    public List<ProductMiniInfoRes> getProductsWithBestNew(){
+        String query = "select *\n" +
+                "from Product left join Likes L on Product.productIdx = L.productIdx\n" +
+                "group by L.productIdx,Product.createAt,L.status\n" +
+                "having count(likeIdx)>0 and L.status='ACTIVE'\n" +
+                "order by Product.createAt desc\n" +
+                "limit 5;";
+        return this.jdbcTemplate.query(query,
+                (rs,rowNum) -> new ProductMiniInfoRes(rs.getInt("productIdx"),
+                        rs.getString("title"),
+                        rs.getString("profileImageUrl"),
+                        rs.getString("isKurlyOnly"),
+                        rs.getString("isLimitQuantity"),
+                        rs.getInt("price"),
+                        rs.getInt("discount"),
+                        0
+                )
+        );
+    }
+    public List<ProductMiniInfoRes> getProductsKurlyOnly(){
+        String query = "select *\n" +
+                "from Product\n" +
+                "where isKurlyOnly='T'\n" +
+                "limit 5;";
+        return this.jdbcTemplate.query(query,
+                (rs,rowNum) -> new ProductMiniInfoRes(rs.getInt("productIdx"),
+                        rs.getString("title"),
+                        rs.getString("profileImageUrl"),
+                        rs.getString("isKurlyOnly"),
+                        rs.getString("isLimitQuantity"),
+                        rs.getInt("price"),
+                        rs.getInt("discount"),
+                        0
+                )
+        );
+    }
 }

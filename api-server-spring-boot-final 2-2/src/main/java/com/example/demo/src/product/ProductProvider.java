@@ -85,10 +85,27 @@ public class ProductProvider {
         }
     }
 
-    public List<ProductMiniInfoRes> getProductsBestReview(int subCategoryIdx) throws BaseException{
+    // 1 subCategory
+    // 2
+    // 3
+    // 4
+    // 5
+    public List<ProductMiniInfoRes> getProductsKurlyRecommend(int domain) throws BaseException{
 
         try{
-            List<ProductMiniInfoRes> getProductMiniInfoRes = productDao.getProductsBySubCategory(subCategoryIdx);
+            List<ProductMiniInfoRes> getProductMiniInfoRes=productDao.getProductsWithReview();
+            if(domain==1){
+                getProductMiniInfoRes = productDao.getProductsWithReview();
+            }
+            else if(domain==2){
+                getProductMiniInfoRes = productDao.getProductsWithDeadSale();
+            }
+            else if(domain==3){
+                getProductMiniInfoRes = productDao.getProductsWithBestNew();
+            }
+            else if(domain==4){
+                getProductMiniInfoRes = productDao.getProductsKurlyOnly();
+            }
             for(int i=0;i<getProductMiniInfoRes.size();i++){
                 getProductMiniInfoRes.get(i).setDiscountAfterPrice(getProductMiniInfoRes.get(i).getPrice()*
                         (100-getProductMiniInfoRes.get(i).getDiscount())/100);

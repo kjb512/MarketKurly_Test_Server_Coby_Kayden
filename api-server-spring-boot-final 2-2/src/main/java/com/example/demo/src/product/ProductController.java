@@ -73,10 +73,10 @@ public class ProductController {
 
     @ResponseBody
     @GetMapping("/best-review")
-    public BaseResponse<List<ProductMiniInfoRes>> getProductWithReview(@PathVariable("subCategoryIdx") int subCategoryIdx ) {
+    public BaseResponse<List<ProductMiniInfoRes>> getProductWithReview() {
         // Get Users
         try{
-            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsBySubCategory(subCategoryIdx);
+            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsKurlyRecommend(1);
             return new BaseResponse<>(getProductBySubCategoryRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -85,10 +85,10 @@ public class ProductController {
 
     @ResponseBody
     @GetMapping("/dead-sale")
-    public BaseResponse<List<ProductMiniInfoRes>> getProductWithDeadSale(@PathVariable("subCategoryIdx") int subCategoryIdx ) {
+    public BaseResponse<List<ProductMiniInfoRes>> getProductWithDeadSale() {
         // Get Users
         try{
-            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsBySubCategory(subCategoryIdx);
+            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsKurlyRecommend(2);
             return new BaseResponse<>(getProductBySubCategoryRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -97,10 +97,10 @@ public class ProductController {
 
     @ResponseBody
     @GetMapping("/best-new")
-    public BaseResponse<List<ProductMiniInfoRes>> getProductWithBestNew(@PathVariable("subCategoryIdx") int subCategoryIdx ) {
+    public BaseResponse<List<ProductMiniInfoRes>> getProductWithBestNew() {
         // Get Users
         try{
-            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsBySubCategory(subCategoryIdx);
+            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsKurlyRecommend(3);
             return new BaseResponse<>(getProductBySubCategoryRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -108,10 +108,10 @@ public class ProductController {
     }
     @ResponseBody
     @GetMapping("/kurly-only")
-    public BaseResponse<List<ProductMiniInfoRes>> getProductKurlyOnly(@PathVariable("subCategoryIdx") int subCategoryIdx ) {
+    public BaseResponse<List<ProductMiniInfoRes>> getProductKurlyOnly() {
         // Get Users
         try{
-            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsBySubCategory(subCategoryIdx);
+            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsKurlyRecommend(4);
             return new BaseResponse<>(getProductBySubCategoryRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
