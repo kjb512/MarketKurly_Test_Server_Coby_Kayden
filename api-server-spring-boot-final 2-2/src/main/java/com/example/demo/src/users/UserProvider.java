@@ -104,6 +104,9 @@ public class UserProvider {
             int userIdx = user.getUserIdx();
             String jwt = jwtService.createJwt(userIdx);
             int cartIdx = getCartIdx(userIdx);
+            if(cartIdx == 0){
+                throw new BaseException(FAILED_TO_GET_CART_IDX);
+            }
             return new PostLoginRes(userIdx,cartIdx,jwt);
         }
         else{

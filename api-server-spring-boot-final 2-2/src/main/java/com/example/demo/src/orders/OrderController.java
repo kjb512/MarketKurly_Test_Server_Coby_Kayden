@@ -114,7 +114,7 @@ public class OrderController {
         }
     }
 
-    @PatchMapping("/deletion/{orderIdx}")
+    @PatchMapping("/status/{orderIdx}")
     public BaseResponse<String> cancelOrder(@PathVariable("orderIdx") int orderIdx){
         try {
             int userIdxByJwt = jwtService.getUserIdx();
