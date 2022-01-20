@@ -1,0 +1,11 @@
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIAZZWP5SEQAXDCRXKD
+      secretKey: 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
+    s3:
+      bucket: sq-review
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
