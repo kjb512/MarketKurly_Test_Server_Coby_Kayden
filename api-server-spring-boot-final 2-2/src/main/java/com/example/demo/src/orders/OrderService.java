@@ -40,7 +40,9 @@ public class OrderService {
             //카트 재생성
             int cartIdx = cartService.createUserCart(postOrderReq.getUserIdx(), deliveryInfoIdx);
             //사용한 쿠폰 지우기
-            couponService.cancelCouponUser(postOrderReq.getUserIdx(),postOrderReq.getCouponUserIdx());
+            if(postOrderReq.getCouponUserIdx() != 0 ){
+                couponService.cancelCouponUser(postOrderReq.getUserIdx(),postOrderReq.getCouponUserIdx());
+            }
             return new PostOrderRes(orderIdx,cartIdx);
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);

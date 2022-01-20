@@ -32,14 +32,21 @@ public class PaymentController {
 
 
     @GetMapping("")
-    public String payments(@RequestBody GetPaymentReq getPaymentReq) throws IOException, InterruptedException {
+    public String payments(@RequestBody GetPaymentReq getPaymentReq) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.tosspayments.com/v1/payments/key-in"))
                 .header("Authorization", "Basic dGVzdF9za183RExKT3BtNVFybGJ3TVA3Yk1BM1BOZHhiV25ZOg==")
                 .header("Content-Type", "application/json")
                 .method("POST", HttpRequest.BodyPublishers.ofString("{\"amount\":\""+getPaymentReq.getAmount()+"\",\"orderId\":\""+getPaymentReq.getOrderId()+"\",\"orderName\":\""+getPaymentReq.getOrderName()+"\",\"cardNumber\":\""+getPaymentReq.getCardNumber()+"\",\"cardExpirationYear\":\""+getPaymentReq.getCardExpirationYear()+"\",\"cardExpirationMonth\":\""+getPaymentReq.getCardExpirationMonth()+"\",\"cardPassword\":\""+getPaymentReq.getCardPassword()+"\",\"customerBirthday\":\""+getPaymentReq.getCustomerBirthday()+"\"}"))
                 .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = null;
+        try {
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return response.body();
     }
 

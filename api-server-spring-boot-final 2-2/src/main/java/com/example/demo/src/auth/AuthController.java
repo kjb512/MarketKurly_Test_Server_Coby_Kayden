@@ -46,11 +46,4 @@ public class AuthController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
-
-    @GetMapping("")
-    public BaseResponse<String> authPhone () {
-        return new BaseResponse<String>("");
-    }
-
-
 }
