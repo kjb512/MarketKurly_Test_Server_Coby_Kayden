@@ -76,7 +76,9 @@ public class UserService {
             }
             if("id".equals(postSnsUserReq.getNameAttributeKey())){
                 type = "NAVER";
-            }else {
+            }else if ("id2".equals(postSnsUserReq.getNameAttributeKey())){
+                type = "KAKAO";
+            }else{
                 type = "GOOGLE";
             }
             postSnsUserReq.setNameAttributeKey(type);

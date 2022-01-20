@@ -1,7 +1,11 @@
 package com.example.demo.src.payments;
 
+import com.example.demo.config.BaseResponse;
 import com.example.demo.src.payments.model.GetPaymentReq;
+import com.example.demo.src.payments.model.PaymentParams;
 import com.example.demo.utils.JwtService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -32,7 +36,7 @@ public class PaymentController {
 
 
     @GetMapping("")
-    public String payments(@RequestBody GetPaymentReq getPaymentReq) {
+    public BaseResponse<PaymentParams> payments(@RequestBody GetPaymentReq getPaymentReq) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.tosspayments.com/v1/payments/key-in"))
                 .header("Authorization", "Basic dGVzdF9za183RExKT3BtNVFybGJ3TVA3Yk1BM1BOZHhiV25ZOg==")
@@ -47,11 +51,24 @@ public class PaymentController {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return response.body();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        PaymentParams paymentParams = null;
+
+        try{
+            paymentParams = objectMapper.readValue(response.body(), PaymentParams.class);
+        }catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+
+        return new BaseResponse<>(paymentParams);
     }
 
     @GetMapping("cancel")
-    public String cancel(@RequestParam String paymentKey) throws IOException, InterruptedException {
+    public BaseResponse<PaymentParams> cancel(@RequestParam String paymentKey) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.tosspayments.com/v1/payments/"+paymentKey+"/cancel"))
                 .header("Authorization", "Basic dGVzdF9za183RExKT3BtNVFybGJ3TVA3Yk1BM1BOZHhiV25ZOg==")
@@ -59,7 +76,19 @@ public class PaymentController {
                 .method("POST", HttpRequest.BodyPublishers.ofString("{\"cancelReason\":\"변심\"}"))
                 .build();
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        return response.body();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        PaymentParams paymentParams = null;
+
+        try{
+            paymentParams = objectMapper.readValue(response.body(), PaymentParams.class);
+        }catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return new BaseResponse<>(paymentParams);
     }
 
 }
