@@ -40,6 +40,7 @@ public class ProductProvider {
             ProductInfoRes getProductRes = productDao.getProductByIdx(productIdx);
             return getProductRes;
         }
+
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
@@ -47,11 +48,11 @@ public class ProductProvider {
 
     public List<ProductMiniInfoRes> getProductsByCategory(int categoryIdx) throws BaseException{
 
-        if(productDao.checkCategoryIdx(categoryIdx)==0){
-            throw new BaseException(GET_PRODUCT_CATEGORY_NOT_EXIST);
-        }
-
         try{
+            if(productDao.checkCategoryIdx(categoryIdx)==0){
+                throw new BaseException(GET_PRODUCT_CATEGORY_NOT_EXIST);
+            }
+
             List<ProductMiniInfoRes> getProductMiniInfoRes = productDao.getProductsByCategory(categoryIdx);
 
             for(int i=0;i<getProductMiniInfoRes.size();i++){
@@ -66,12 +67,11 @@ public class ProductProvider {
     }
 
     public List<ProductMiniInfoRes> getProductsBySubCategory(int subCategoryIdx) throws BaseException{
-
-        if(productDao.checkSubCategoryIdx(subCategoryIdx)==0){
-            throw new BaseException(GET_PRODUCT_SUB_CATEGORY_NOT_EXIST);
-        }
-
         try{
+            if(productDao.checkSubCategoryIdx(subCategoryIdx)==0){
+                throw new BaseException(GET_PRODUCT_SUB_CATEGORY_NOT_EXIST);
+            }
+
             List<ProductMiniInfoRes> getProductMiniInfoRes = productDao.getProductsBySubCategory(subCategoryIdx);
             for(int i=0;i<getProductMiniInfoRes.size();i++){
                 getProductMiniInfoRes.get(i).setDiscountAfterPrice(getProductMiniInfoRes.get(i).getPrice()*
@@ -85,5 +85,17 @@ public class ProductProvider {
         }
     }
 
+    public List<ProductMiniInfoRes> getProductsBestReview(int subCategoryIdx) throws BaseException{
 
+        try{
+            List<ProductMiniInfoRes> getProductMiniInfoRes = productDao.getProductsBySubCategory(subCategoryIdx);
+            for(int i=0;i<getProductMiniInfoRes.size();i++){
+                getProductMiniInfoRes.get(i).setDiscountAfterPrice(getProductMiniInfoRes.get(i).getPrice()*
+                        (100-getProductMiniInfoRes.get(i).getDiscount())/100);
+            }
+            return getProductMiniInfoRes;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

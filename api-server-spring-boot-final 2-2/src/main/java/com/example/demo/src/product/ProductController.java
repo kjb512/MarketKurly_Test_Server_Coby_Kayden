@@ -70,4 +70,51 @@ public class ProductController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    @ResponseBody
+    @GetMapping("/best-review")
+    public BaseResponse<List<ProductMiniInfoRes>> getProductWithReview(@PathVariable("subCategoryIdx") int subCategoryIdx ) {
+        // Get Users
+        try{
+            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsBySubCategory(subCategoryIdx);
+            return new BaseResponse<>(getProductBySubCategoryRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @GetMapping("/dead-sale")
+    public BaseResponse<List<ProductMiniInfoRes>> getProductWithDeadSale(@PathVariable("subCategoryIdx") int subCategoryIdx ) {
+        // Get Users
+        try{
+            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsBySubCategory(subCategoryIdx);
+            return new BaseResponse<>(getProductBySubCategoryRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @GetMapping("/best-new")
+    public BaseResponse<List<ProductMiniInfoRes>> getProductWithBestNew(@PathVariable("subCategoryIdx") int subCategoryIdx ) {
+        // Get Users
+        try{
+            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsBySubCategory(subCategoryIdx);
+            return new BaseResponse<>(getProductBySubCategoryRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+    @ResponseBody
+    @GetMapping("/kurly-only")
+    public BaseResponse<List<ProductMiniInfoRes>> getProductKurlyOnly(@PathVariable("subCategoryIdx") int subCategoryIdx ) {
+        // Get Users
+        try{
+            List<ProductMiniInfoRes> getProductBySubCategoryRes = productProvider.getProductsBySubCategory(subCategoryIdx);
+            return new BaseResponse<>(getProductBySubCategoryRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }

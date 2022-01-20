@@ -40,7 +40,6 @@ public class QuestionProvider {
                 cal.setTime(questionResList.get(i).getCreateAt());
                 questionResList.get(i).setCreatDate(String.valueOf(cal.get(Calendar.YEAR))+"."+String.valueOf(cal.get(Calendar.MONTH)+1)+"."+String.valueOf(cal.get(Calendar.DATE)));
             }
-
             return questionResList;
         }catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);

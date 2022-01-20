@@ -61,6 +61,7 @@ public class ReviewController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
     @ResponseBody
     @GetMapping("/{reviewIdx}")
     public BaseResponse<ReviewInfoRes> getReviewInfo(@PathVariable("reviewIdx") int reviewIdx) {
@@ -110,5 +111,4 @@ public class ReviewController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
-
 }

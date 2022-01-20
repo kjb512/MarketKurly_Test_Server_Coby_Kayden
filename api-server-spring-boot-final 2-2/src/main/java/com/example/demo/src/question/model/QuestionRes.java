@@ -16,7 +16,6 @@ public class QuestionRes {
     private int userIdx;
     private String title;
     private String question;
-    private String isAnswer;
     private String isLock;
     private Timestamp createAt;
     private String creatDate;

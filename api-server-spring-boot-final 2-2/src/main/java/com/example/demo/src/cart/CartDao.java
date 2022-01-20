@@ -105,7 +105,7 @@ public class CartDao {
                 "            from CartProduct\n" +
                 "                     left join Cart on CartProduct.cartIdx = Cart.cartIdx\n" +
                 "            where productIdx = ?\n" +
-                "              and Cart.cartIdx = ?\n" +
+                "              and CartProduct.cartIdx = ?\n" +
                 "    and Cart.status='ACTIVE'\n" +
                 "    ) as exist;";
         return this.jdbcTemplate.queryForObject(query, int.class, productIdx, userIdx);
