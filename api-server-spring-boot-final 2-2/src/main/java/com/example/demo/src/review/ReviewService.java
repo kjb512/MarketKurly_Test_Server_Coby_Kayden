@@ -1,6 +1,5 @@
 package com.example.demo.src.review;
 
-
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.product.ProductDao;
@@ -43,8 +42,10 @@ public class ReviewService {
 
     public ReviewInfoRes creatReview(ReviewReq reviewReq) throws BaseException {
         try {
-            String url = s3Uploader.upload(reviewReq.getMultipart(), "static");
-
+            String url =null;
+            if(reviewReq.getImage()!=null){
+                url = s3Uploader.upload(reviewReq.getImage(), "static");
+            }
             return reviewProvider.getReview(reviewDao.createReview(reviewReq.getReviewDto(),url));
         }
         catch (Exception exception){

@@ -11,6 +11,6 @@ import javax.mail.Multipart;
 @Getter
 @Setter
 public class ReviewReq {
-    private MultipartFile multipart;
+    private MultipartFile image;
     private ReviewDto reviewDto;
 }

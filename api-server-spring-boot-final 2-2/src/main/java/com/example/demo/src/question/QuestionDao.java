@@ -35,7 +35,6 @@ public class QuestionDao {
                 rs.getInt("userIdx"),
                 rs.getString("title"),
                 rs.getString("question"),
-                rs.getString("isAnswer"),
                 rs.getString("isLock"),
                 rs.getTimestamp("Question.createAt"),
                 "",
@@ -64,5 +63,4 @@ public class QuestionDao {
                 "where answerIdx=?";
         return this.jdbcTemplate.queryForObject(queryForResult,int.class,answerIdx);
     }
-
 }
