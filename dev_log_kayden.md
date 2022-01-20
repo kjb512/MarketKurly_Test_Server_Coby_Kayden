@@ -1,6 +1,6 @@
 # ERD 설계
 ![erd](./img/ERD.png)
-# API template[https://docs.google.com/spreadsheets/d/17R5ClwLk3Qgk6IODBkNcfMbF5XQvLwX4B7tGz9-qE2A/edit?usp=sharing]
+# [API template](https://docs.google.com/spreadsheets/d/17R5ClwLk3Qgk6IODBkNcfMbF5XQvLwX4B7tGz9-qE2A/edit?usp=sharing)
 # 2022-01-08
 * EC2,RDS 서버 구축 100%
 * dev/prod 폴더 나누어서 서브 도메인 적용 100%
