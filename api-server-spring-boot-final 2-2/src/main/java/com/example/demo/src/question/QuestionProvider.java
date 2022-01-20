@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.example.demo.config.BaseResponseStatus.CHECK_INVALID_PRODUCT_ID;
 import static com.example.demo.config.BaseResponseStatus.DATABASE_ERROR;
 
 //Provider : Read의 비즈니스 로직 처리
@@ -42,7 +43,7 @@ public class QuestionProvider {
             }
             return questionResList;
         }catch (Exception exception){
-            throw new BaseException(DATABASE_ERROR);
+            throw new BaseException(CHECK_INVALID_PRODUCT_ID);
         }
     }
 

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.example.demo.config.BaseResponseStatus.CHECK_INVALID_QUESTION_OR_PRODUCT_ID;
 import static com.example.demo.config.BaseResponseStatus.DATABASE_ERROR;
 
 // Service Create, Update, Delete 의 로직 처리
@@ -58,17 +59,17 @@ public class QuestionService {
             questionDao.deleteQuestion(questionIdx);
             return questionProvider.getQuestionsWithAnswer(productIdx);
         } catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
+            throw new BaseException(CHECK_INVALID_QUESTION_OR_PRODUCT_ID);
         }
     }
 
     public List<QuestionRes> createAnswer(int productidx, int questionIdx, String answer) throws BaseException{
         try{
             questionDao.creatAnswer(questionIdx,answer);
-            return questionDao.getQuestionsWithAnswer(productidx);
+            return questionProvider.getQuestionsWithAnswer(productidx);
 
         }catch (Exception exception){
-            throw new BaseException(DATABASE_ERROR);
+            throw new BaseException(CHECK_INVALID_QUESTION_OR_PRODUCT_ID);
         }
     }
 
