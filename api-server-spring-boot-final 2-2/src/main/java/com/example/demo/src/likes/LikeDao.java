@@ -62,7 +62,7 @@ public class LikeDao {
     }
 
     public int cancelLike(DelteteLikeReq delteteLikeReq) {
-        String cancelLikeQuery = "delete from Likes " +
+        String cancelLikeQuery = "update Likes set status = 'INACTIVE'" +
                 "where userIdx= ? and productIdx = ? ";
         Object[] cancelLikeParams = new Object[]{delteteLikeReq.getUserIdx(), delteteLikeReq.getProductIdx()};
 

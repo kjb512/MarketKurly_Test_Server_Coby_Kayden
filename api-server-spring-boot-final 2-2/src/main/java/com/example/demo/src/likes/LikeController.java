@@ -96,7 +96,7 @@ public class LikeController {
         }
     }
 
-    @DeleteMapping("")
+    @PatchMapping("/status")
     public BaseResponse<String> cancelLike(@Validated @RequestBody DelteteLikeReq delteteLikeReq, Errors errors){
         try {
             int userIdxByJwt = jwtService.getUserIdx();
