@@ -80,4 +80,10 @@ public class CouponDao {
                 int.class,
                 doubleCheckCouponParams);
     }
+
+    public int expireCoupon() {
+        String cancelLikeQuery = "update CouponUser CU inner join Coupon C on CU.couponIdx = C.couponIdx set C.status = 'EXPIRED', CU.status = 'EXPIRED' where NOW() > C.deadLine;";
+
+        return this.jdbcTemplate.update(cancelLikeQuery);
+    }
 }

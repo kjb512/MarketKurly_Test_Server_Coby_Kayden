@@ -5,6 +5,7 @@ import com.example.demo.src.coupons.model.PostCouponReq;
 import com.example.demo.src.coupons.model.PostCouponRes;
 import com.example.demo.utils.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import static com.example.demo.config.BaseResponseStatus.*;
@@ -37,6 +38,16 @@ public class CouponService {
             if(result == 0){
                 throw new BaseException(DELETION_FAIL_Like);
             }
+        } catch(Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    @Scheduled(cron = "0 0 0 * * *") //매일 자정마다.
+    public void expireCoupon() throws BaseException{
+        try{
+            couponDao.expireCoupon();
+
         } catch(Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
