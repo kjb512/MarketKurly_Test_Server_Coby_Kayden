@@ -1,6 +1,7 @@
 package com.example.demo.src.search;
 
 import com.example.demo.config.BaseException;
+import com.example.demo.config.BaseResponse;
 import com.example.demo.src.review.ReviewDao;
 import com.example.demo.src.review.ReviewProvider;
 import com.example.demo.src.review.model.ReviewInfoRes;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.example.demo.config.BaseResponseStatus.CHECK_INVALID_SEARCH_KEYWORD;
 import static com.example.demo.config.BaseResponseStatus.DATABASE_ERROR;
 
 // Service Create, Update, Delete 의 로직 처리
@@ -38,8 +40,8 @@ public class SearchService {
 
     public List<SearchRes> addSearch(int userIdx, String keyword) throws Exception{
         try{
+            searchDao.addSearch(userIdx,keyword);
             List<SearchRes> searchRes = searchProvider.getRecentSearch(userIdx);
-                    searchDao.addSearch(userIdx,keyword);
             return searchRes;
         }catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
@@ -51,7 +53,7 @@ public class SearchService {
             SearchDeleteRes searchDeleteRes = searchDao.deleteSearch(searchIdx);
             return searchDeleteRes;
         }catch (Exception exception){
-            throw new BaseException(DATABASE_ERROR);
+            throw new BaseException(CHECK_INVALID_SEARCH_KEYWORD);
         }
     }
 }

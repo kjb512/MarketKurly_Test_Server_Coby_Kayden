@@ -1,3 +1,6 @@
+# ERD 설계
+![erd](./img/ERD.png)
+# [API template](https://docs.google.com/spreadsheets/d/17R5ClwLk3Qgk6IODBkNcfMbF5XQvLwX4B7tGz9-qE2A/edit?usp=sharing)
 # 2022-01-08
 * EC2,RDS 서버 구축 100%
 * dev/prod 폴더 나누어서 서브 도메인 적용 100%
@@ -180,4 +183,37 @@
 * Order API 수정
   * couponUserIdx 추가
     * 쿠폰 사용하여 주문 완료시 CouponUser테이블에서 사용된 쿠폰 제거(트랜잭션)
-    * n
+* 2차 피드백
+  * DELETE 지양
+  * ERD 기본값 변경
+  * 외부 API 연동
+
+# 2022-01-19
+* 2차 피드백을 바탕으로 수정
+  * DELETE문 PATCH 문으로 변경
+  * patch /api/deletion -> patch /api/status 
+  * ERD 기본값들 값에 맞게 수정
+* 프론트 요청사항 처리
+  * 자주사는 상품 이미지 추가
+  * 오류 해결
+* Cart API 수정
+  * 생성하기 구현
+  * 주문
+* Order API 수정
+  * 주문하기에서 기존 카트 삭제와 재생성 구현
+* cartIdx
+  * 로그인과 주문하기 리스폰스에 cartIdx추가
+
+# 2022-01-20
+* 토스페이먼트 연동 
+  * 결제하기 구현
+  * 결제취소 구현
+* SNS 로그인 구현
+  * 네이버
+  * 구글
+  * 카카오
+* nginx 리버스 프록싱으로 인해 Oauth2 redirect_uri 불일치 문제
+  * redirect_uri 재정의 하여서 문제 해결
+* Coupon API 수정
+  * 스케쥴러를 이용하여 매일 자정에 만료일 체크후 만료된 쿠폰 상태 변경
+* API template 작성

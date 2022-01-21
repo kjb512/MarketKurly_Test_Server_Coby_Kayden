@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+import static com.example.demo.config.BaseResponseStatus.CHECK_NULL_SEARCH_KEYWORD;
 import static com.example.demo.config.BaseResponseStatus.INVALID_USER_JWT;
 
 @RestController
@@ -75,13 +76,16 @@ public class SearchController {
     public BaseResponse<List<SearchRes>> addSearch(@RequestBody SearchReq searchReq) throws Exception {
         // Get Users
         try{
+            if(searchReq.getKeyword().length()==0){
+                return new BaseResponse<>(CHECK_NULL_SEARCH_KEYWORD);
+            }
             int userIdxByJwt = jwtService.getUserIdx();
             //userIdx와 접근한 유저가 같은지 확인
             if(searchReq.getUserIdx() != userIdxByJwt){
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
              List<SearchRes> getRecentSearchRes = searchService.addSearch(searchReq.getUserIdx(),searchReq.getKeyword());
-            return new BaseResponse<>(getRecentSearchRes);
+             return new BaseResponse<>(getRecentSearchRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
